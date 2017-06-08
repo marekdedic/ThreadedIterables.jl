@@ -17,7 +17,7 @@ end
 
 function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, d::T, c::U)::Void
 	const typ = eltype(d);
-	Threads.@threads for i in eachindex(c)
-		d[i] = convert(typ, f(c[i]));
+	Threads.@threads for (i, j) in zip(eachindex(d), eachindex(c))
+		d[i] = convert(typ, f(c[j]));
 	end
 end
