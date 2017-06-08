@@ -1,2 +1,2 @@
-# tmap.jl
+# ThreadedMap.jl
 Threaded map in Julia
