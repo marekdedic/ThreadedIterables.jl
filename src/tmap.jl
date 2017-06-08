@@ -8,14 +8,16 @@ function tmap{T<:AbstractArray}(f::Function, c::T)
 	return reshape([ret...],size(ret)...);
 end
 
-function tmap!{T<:AbstractArray}(f::Function, c::T)::Void # TODO: Handle type instability
+function tmap!{T<:AbstractArray}(f::Function, c::T)::Void
+	const typ = eltype(c);
 	Threads.@threads for i in eachindex(c)
-		c[i] = f(c[i]);
+		c[i] = convert(typ, f(c[i]));
 	end
 end
 
-function tmap!{T<:AbstractArray}(f::Function, d::T, c::T)::Void # TODO: Handle type instability
+function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, d::T, c::U)::Void
+	const typ = eltype(d);
 	Threads.@threads for i in eachindex(c)
-		d[i] = f(c[i]);
+		d[i] = convert(typ, f(c[i]));
 	end
 end
