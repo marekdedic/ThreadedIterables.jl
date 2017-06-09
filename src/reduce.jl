@@ -5,12 +5,27 @@ function treduce{T<:AbstractArray}(op::Function, v0, itr::T)
 	tmp = Vector{Any}(n);
 	ind = eachindex(itr);
 	len = length(ind);
-	Threads.@threads for i in 1:n
-		start = fld(len * (i - 1), n) + 1;
-		stop = fld(len * i, n);
-		tmp[i] = reduce(op, v0, itr[ind[start:stop]]);
+	if len > n
+		Threads.@threads for i in 1:n
+			start = fld(len * (i - 1), n) + 1;
+			stop = fld(len * i, n);
+			tmp[i] = reduce(op, v0, itr[ind[start:stop]]);
+		end
+	else
+		tmp = itr;
+		n = len;
 	end
-	return reduce(op, v0, tmp);
+	tmp2 = Vector{Any}(cld(n, 2));
+	while n > 1
+		nn = cld(n, 2);
+		Threads.@threads for j in 1:nn
+			stop = min(2j, n);
+			tmp2[j] = reduce(op, v0, tmp[2j - 1:stop]);
+		end
+		n = nn;
+		tmp = tmp2
+	end
+	return tmp[1];
 end
 
 function treduce{T<:AbstractArray}(op::Function, itr::T)
@@ -18,10 +33,25 @@ function treduce{T<:AbstractArray}(op::Function, itr::T)
 	tmp = Vector{Any}(n);
 	ind = eachindex(itr);
 	len = length(ind);
-	Threads.@threads for i in 1:n
-		start = fld(len * (i - 1), n) + 1;
-		stop = fld(len * i, n);
-		tmp[i] = reduce(op, itr[ind[start:stop]]);
+	if len > n
+		Threads.@threads for i in 1:n
+			start = fld(len * (i - 1), n) + 1;
+			stop = fld(len * i, n);
+			tmp[i] = reduce(op, itr[ind[start:stop]]);
+		end
+	else
+		tmp = itr;
+		n = len;
 	end
-	return reduce(op, tmp);
+	tmp2 = Vector{Any}(cld(n, 2));
+	while n > 1
+		nn = cld(n, 2);
+		Threads.@threads for j in 1:nn
+			stop = min(2j, n);
+			tmp2[j] = reduce(op, tmp[2j - 1:stop]);
+		end
+		n = nn;
+		tmp = tmp2
+	end
+	return tmp[1];
 end
