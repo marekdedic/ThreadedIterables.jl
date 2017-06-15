@@ -21,3 +21,4 @@ docs_dir: 'build'
 
 pages:
     - Home: index.md
+    - Reference: reference.md

@@ -1,9 +1,9 @@
 export tmap, tmap!;
 
 """
-    tmap(f::Function, c::AbstractArray)
+    tmap(f::Function, c::AbstractArray)::AbstractArray
 
-Like map(f, c), but threaded.
+Multi-threaded version of [map(f, c)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map). Currently only supports a single collection.
 """
 function tmap{T<:AbstractArray}(f::Function, c::T)
 	ret = similar(c, Any);
@@ -13,16 +13,26 @@ function tmap{T<:AbstractArray}(f::Function, c::T)
 	return reshape([ret...],size(ret)...);
 end
 
-function tmap!{T<:AbstractArray}(f::Function, c::T)::Void
-	const typ = eltype(c);
-	Threads.@threads for i in eachindex(c)
-		c[i] = convert(typ, f(c[i]));
+"""
+    tmap!(f::Function, collection::AbstractArray)::Void
+
+Multi-threaded version of [map!(f, collection)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map!).
+"""
+function tmap!{T<:AbstractArray}(f::Function, collection::T)::Void
+	const typ = eltype(collection);
+	Threads.@threads for i in eachindex(collection)
+		collection[i] = convert(typ, f(collection[i]));
 	end
 end
 
-function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, d::T, c::U)::Void
-	const typ = eltype(d);
-	Threads.@threads for i in zip(eachindex(d), eachindex(c))
-		d[i[1]] = convert(typ, f(c[i[2]]));
+"""
+    tmap!(f::Function, destination::AbstractArray, collection::AbstractArray)::Void
+
+Multi-threaded version of [map!(f, destination, collection)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map!). Currently only supports a single collection.
+"""
+function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, destination::T, collection::U)::Void
+	const typ = eltype(destination);
+	Threads.@threads for i in zip(eachindex(destination), eachindex(collection))
+		destination[i[1]] = convert(typ, f(collection[i[2]]));
 	end
 end

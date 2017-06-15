@@ -1,5 +1,10 @@
 export treduce;
 
+"""
+    treduce(op::Function, v0, itr::AbstractArray)
+
+Multi-threaded version of [reduce(op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce).
+"""
 function treduce{T<:AbstractArray}(op::Function, v0, itr::T)
 	n = Threads.nthreads();
 	tmp = Vector{Any}(n);
@@ -28,6 +33,11 @@ function treduce{T<:AbstractArray}(op::Function, v0, itr::T)
 	return tmp[1];
 end
 
+"""
+    treduce(op::Function, itr::AbstractArray)
+
+Multi-threaded version of [reduce(op, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce).
+"""
 function treduce{T<:AbstractArray}(op::Function, itr::T)
 	n = Threads.nthreads();
 	tmp = Vector{Any}(n);
