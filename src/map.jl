@@ -1,5 +1,10 @@
 export tmap, tmap!;
 
+"""
+    tmap(f::Function, c::AbstractArray)
+
+Like map(f, c), but threaded.
+"""
 function tmap{T<:AbstractArray}(f::Function, c::T)
 	ret = similar(c, Any);
 	Threads.@threads for i in eachindex(c)
