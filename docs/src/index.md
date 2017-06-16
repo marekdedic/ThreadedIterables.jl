@@ -1,6 +1,6 @@
 # ThreadedMap.jl Documentation
 
-This package implements Multi-threaded variants of the mapping functions in Julia. Currently, only Julia 0.5 is supported. See the reference for details about the individual functions provided by this package.
+This package implements Multi-threaded variants of the mapping functions (currently `foreach`, `map`, `reduce`, `mapreduce`, `mapfoldl` and `mapfoldr`) in Julia. Currently, only Julia 0.5 is supported. See the reference for details about the individual functions provided by this package.
 
 Note that when using this package, the responsibility for preventing race conditions lies with the user.
 
