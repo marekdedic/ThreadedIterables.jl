@@ -1,0 +1,5 @@
+# foreach()
+
+```@docs
+tforeach
+```

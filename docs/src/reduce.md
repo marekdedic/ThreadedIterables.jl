@@ -1,0 +1,5 @@
+# reduce()
+
+```@docs
+treduce
+```

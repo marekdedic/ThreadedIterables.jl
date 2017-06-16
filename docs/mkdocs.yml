@@ -21,4 +21,9 @@ docs_dir: 'build'
 
 pages:
     - Home: index.md
-    - Reference: reference.md
+    - Reference:
+        - foreach(): foreach.md
+        - map(): map.md
+        - reduce(): reduce.md
+        - mapreduce(): mapreduce.md
+        - mapfoldl() and mapfoldr(): mapfold.md
