@@ -3,7 +3,7 @@ export treduce;
 """
     treduce(op::Function, v0, itr::AbstractArray)
 
-Multi-threaded version of [reduce(op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce).
+Multi-threaded version of [reduce(op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce). Note that function `op` must **not** change type!
 """
 function treduce{T<:AbstractArray}(op::Function, v0, itr::T)
 	n = Threads.nthreads();
@@ -36,7 +36,7 @@ end
 """
     treduce(op::Function, itr::AbstractArray)
 
-Multi-threaded version of [reduce(op, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce).
+Multi-threaded version of [reduce(op, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce). Note that function `op` must **not** change type!
 """
 function treduce{T<:AbstractArray}(op::Function, itr::T)
 	n = Threads.nthreads();
