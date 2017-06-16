@@ -32,7 +32,9 @@ Multi-threaded version of [map!(f, destination, collection)](https://docs.julial
 """
 function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, destination::T, collection::U)::Void
 	const typ = eltype(destination);
-	Threads.@threads for i in zip(eachindex(destination), eachindex(collection))
-		destination[i[1]] = convert(typ, f(collection[i[2]]));
+	dind = eachindex(destination);
+	cind = eachindex(collection);
+	Threads.@threads for i in 1:length(cind);
+		destination[dind[i]] = convert(typ, f(collection[cind[i]]));
 	end
 end
