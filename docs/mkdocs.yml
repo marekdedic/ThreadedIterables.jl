@@ -20,4 +20,5 @@ pages:
         - map(): map.md
         - reduce(): reduce.md
         - mapreduce(): mapreduce.md
-        - mapfoldl() and mapfoldr(): mapfold.md
+        - mapfoldl(): mapfoldl.md
+        - mapfoldr(): mapfoldr.md

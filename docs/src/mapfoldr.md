@@ -1,0 +1,5 @@
+# mapfoldr()
+
+```@docs
+tmapfoldr
+```
