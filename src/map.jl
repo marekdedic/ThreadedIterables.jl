@@ -14,18 +14,6 @@ function tmap{T<:AbstractArray}(f::Function, c::T)
 end
 
 """
-    tmap!(f::Function, collection::AbstractArray)::Void
-
-Multi-threaded version of [map!(f, collection)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map!).
-"""
-function tmap!{T<:AbstractArray}(f::Function, collection::T)::Void
-	const typ = eltype(collection);
-	Threads.@threads for i in eachindex(collection)
-		collection[i] = convert(typ, f(collection[i]));
-	end
-end
-
-"""
     tmap!(f::Function, destination::AbstractArray, collection::AbstractArray)::Void
 
 Multi-threaded version of [map!(f, destination, collection)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map!). Currently only supports a single collection.

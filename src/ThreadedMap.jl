@@ -7,4 +7,6 @@ include("mapfoldl.jl");
 include("mapfoldr.jl");
 include("reduce.jl");
 
+@deprecate tmap!{T<:AbstractArray}(f::Function, collection::T) tmap!(f, collection, collection)
+
 end
