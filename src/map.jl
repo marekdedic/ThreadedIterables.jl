@@ -6,6 +6,7 @@ export tmap, tmap!;
 Multi-threaded version of [map(f, c)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map). Currently only supports a single collection.
 """
 function tmap{T<:AbstractArray}(f::Function, c::T)
+	ensureThreaded();
 	ret = similar(c, Any);
 	Threads.@threads for i in eachindex(c)
 		ret[i] = f(c[i]);
@@ -19,6 +20,7 @@ end
 Multi-threaded version of [map!(f, destination, collection)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map!). Currently only supports a single collection.
 """
 function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, destination::T, collection::U)::Void
+	ensureThreaded();
 	const typ = eltype(destination);
 	dind = eachindex(destination);
 	cind = eachindex(collection);
