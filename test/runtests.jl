@@ -1,6 +1,8 @@
 using ThreadedMap;
 using Test;
 
+using Random;
+
 include("testForeach.jl");
 include("testMap.jl");
 include("testReduce.jl");
