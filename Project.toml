@@ -1,0 +1,6 @@
+authors = ["GenaBitu <genabitu@gmail.com>"]
+name = "ThreadedMap"
+uuid = "11d239b0-c0b9-11e8-1935-d5cfa53abb03"
+version = "0.1.0"
+
+[deps]
