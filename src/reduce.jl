@@ -21,7 +21,7 @@ function treduce(op::Function, itr::T; init) where T<:AbstractArray
 		tmp = itr;
 		n = len;
 	end
-	tmp2 = Vector{Any}(cld(n, 2));
+	tmp2 = Vector{Any}(undef, cld(n, 2));
 	while n > 1
 		nn = cld(n, 2);
 		Threads.@threads for j in 1:nn
@@ -42,7 +42,7 @@ Multi-threaded version of [reduce(op, itr)](https://docs.julialang.org/en/stable
 function treduce(op::Function, itr::T) where T<:AbstractArray
 	ensureThreaded();
 	n = Threads.nthreads();
-	tmp = Vector{Any}(n);
+	tmp = Vector{Any}(undef, n);
 	ind = eachindex(itr);
 	len = length(ind);
 	if len > n
@@ -55,7 +55,7 @@ function treduce(op::Function, itr::T) where T<:AbstractArray
 		tmp = itr;
 		n = len;
 	end
-	tmp2 = Vector{Any}(cld(n, 2));
+	tmp2 = Vector{Any}(undef, cld(n, 2));
 	while n > 1
 		nn = cld(n, 2);
 		Threads.@threads for j in 1:nn
