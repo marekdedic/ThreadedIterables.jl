@@ -15,11 +15,11 @@ function tmap{T<:AbstractArray}(f::Function, c::T)
 end
 
 """
-    tmap!(f::Function, destination::AbstractArray, collection::AbstractArray)::Void
+    tmap!(f::Function, destination::AbstractArray, collection::AbstractArray)::Nothing
 
 Multi-threaded version of [map!(f, destination, collection)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.map!). Currently only supports a single collection.
 """
-function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, destination::T, collection::U)::Void
+function tmap!{T<:AbstractArray, U<:AbstractArray}(f::Function, destination::T, collection::U)::Nothing
 	ensureThreaded();
 	const typ = eltype(destination);
 	dind = eachindex(destination);
