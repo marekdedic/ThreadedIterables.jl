@@ -1,4 +1,5 @@
-using Base.Test;
+using ThreadedMap;
+using Test;
 
 include("testForeach.jl");
 include("testMap.jl");
