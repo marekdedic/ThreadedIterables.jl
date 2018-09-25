@@ -1,11 +1,11 @@
 export treduce;
 
 """
-    treduce(op::Function, v0, itr::AbstractArray)
+    treduce(op::Function, itr::AbstractArray; init)
 
-Multi-threaded version of [reduce(op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce). Note that function `op` must **not** change type!
+Multi-threaded version of [reduce(op, itr; init)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.reduce). Note that function `op` must **not** change type!
 """
-function treduce(op::Function, v0, itr::T) where T<:AbstractArray
+function treduce(op::Function, itr::T; init) where T<:AbstractArray
 	ensureThreaded();
 	n = Threads.nthreads();
 	tmp = Vector{Any}(undef, n);
@@ -15,7 +15,7 @@ function treduce(op::Function, v0, itr::T) where T<:AbstractArray
 		Threads.@threads for i in 1:n
 			start = fld(len * (i - 1), n) + 1;
 			stop = fld(len * i, n);
-			tmp[i] = reduce(op, v0, itr[ind[start:stop]]);
+			tmp[i] = reduce(op, itr[ind[start:stop]]; init = init);
 		end
 	else
 		tmp = itr;
@@ -26,7 +26,7 @@ function treduce(op::Function, v0, itr::T) where T<:AbstractArray
 		nn = cld(n, 2);
 		Threads.@threads for j in 1:nn
 			stop = min(2j, n);
-			tmp2[j] = reduce(op, v0, tmp[2j - 1:stop]);
+			tmp2[j] = reduce(op, tmp[2j - 1:stop]; init = init);
 		end
 		n = nn;
 		tmp = tmp2
