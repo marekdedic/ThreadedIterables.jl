@@ -1,5 +1,3 @@
-using ThreadedMap;
-
 function testTmapfoldr1Stable()::Bool
 	arr = rand(1:1000, rand(1:10, rand(1:4))...);
 	return mapfoldr(x->2x, +, 0, arr) == tmapfoldr(x->2x, +, 0, arr);

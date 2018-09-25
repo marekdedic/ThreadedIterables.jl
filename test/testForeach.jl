@@ -1,5 +1,3 @@
-using ThreadedMap;
-
 function testTforeach()::Bool
 	arr = rand(1:1000, rand(1:10, rand(1:4))...);
 	serial = 0;
