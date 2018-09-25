@@ -1,12 +1,12 @@
 export tmapreduce, maptreduce, tmaptreduce;
 
 """
-    tmapreduce(f::Function, op::Function, v0, itr::AbstractArray)
+    tmapreduce(f::Function, op::Function, itr::AbstractArray; init)
 
-Multi-threaded version of [mapreduce(f, op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapreduce). Only the **mapping** part is parallelised.
+Multi-threaded version of [mapreduce(f, op, itr; init)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapreduce). Only the **mapping** part is parallelised.
 """
-function tmapreduce(f::Function, op::Function, v0, itr::T) where T<:AbstractArray
-	return reduce(op, v0, tmap(f, itr));
+function tmapreduce(f::Function, op::Function, itr::T; init) where T<:AbstractArray
+	return reduce(op, tmap(f, itr); init = init);
 end
 
 """
@@ -19,12 +19,12 @@ function tmapreduce(f::Function, op::Function, itr::T) where T<:AbstractArray
 end
 
 """
-    maptreduce(f::Function, op::Function, v0, itr::AbstractArray)
+    maptreduce(f::Function, op::Function, itr::AbstractArray; init)
 
-Multi-threaded version of [mapreduce(f, op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapreduce). Only the **reduction** part is parallelised. Note that function `op` must **not** change type!
+Multi-threaded version of [mapreduce(f, op, itr; init)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapreduce). Only the **reduction** part is parallelised. Note that function `op` must **not** change type!
 """
-function maptreduce(f::Function, op::Function, v0, itr::T) where T<:AbstractArray
-	return treduce(op, v0, map(f, itr));
+function maptreduce(f::Function, op::Function, itr::T; init) where T<:AbstractArray
+	return treduce(op, map(f, itr); init = init);
 end
 
 """
@@ -37,12 +37,12 @@ function maptreduce(f::Function, op::Function, itr::T) where T<:AbstractArray
 end
 
 """
-    tmaptreduce(f::Function, op::Function, v0, itr::AbstractArray)
+    tmaptreduce(f::Function, op::Function, itr::AbstractArray; init)
 
-Multi-threaded version of [mapreduce(f, op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapreduce). Both the **mapping** and the **reduction** part is parallelised. Note that function `op` must **not** change type!
+Multi-threaded version of [mapreduce(f, op, itr; init)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapreduce). Both the **mapping** and the **reduction** part is parallelised. Note that function `op` must **not** change type!
 """
-function tmaptreduce(f::Function, op::Function, v0, itr::T) where T<:AbstractArray
-	return treduce(op, v0, tmap(f, itr));
+function tmaptreduce(f::Function, op::Function, itr::T; init) where T<:AbstractArray
+	return treduce(op, tmap(f, itr); init = init);
 end
 
 """
