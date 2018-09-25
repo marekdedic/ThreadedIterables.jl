@@ -29,11 +29,6 @@ include("testMapfoldr.jl");
 				end
 			end
 		end
-		@testset "tmap!(f, collection)" begin
-			for i in 1:10000
-				@test testTmap2();
-			end
-		end
 		@testset "tmap!(f, destination, collection)" begin
 			for i in 1:10000
 				@test testTmap3();

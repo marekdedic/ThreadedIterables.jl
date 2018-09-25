@@ -9,14 +9,6 @@ function testTmap1Unstable()::Bool
 	return minimum(map(x->str[1:x], arr) .== tmap(x->str[1:x], arr));
 end
 
-function testTmap2()::Bool
-	arr = rand(1:1000, rand(1:10, rand(1:4))...);
-	tarr = deepcopy(arr);
-	map!(x->2x, arr);
-	tmap!(x->2x, tarr);
-	return minimum(arr .== tarr);
-end
-
 function testTmap3()::Bool
 	n = rand(1:2);
 	dim1 = rand(1:3, n);
