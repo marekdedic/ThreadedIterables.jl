@@ -10,7 +10,7 @@ include("testMapreduce.jl");
 include("testMapfoldl.jl");
 include("testMapfoldr.jl");
 
-@testset "All" begin
+@testset "ThreadedMap.jl" begin
 	@testset "foreach" begin
 		@testset "tforeach(f, c)" begin
 			for i in 1:10000
