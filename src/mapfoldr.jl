@@ -5,7 +5,7 @@ export tmapfoldr;
 
 Multi-threaded version of [mapfoldr(f, op, v0, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapfoldr). Only the **mapping** part is parallelised.
 """
-function tmapfoldr{T<:AbstractArray}(f::Function, op::Function, v0, itr::T)
+function tmapfoldr(f::Function, op::Function, v0, itr::T) where T<:AbstractArray
 	return foldr(op, v0, tmap(f, itr));
 end
 
@@ -14,6 +14,6 @@ end
 
 Multi-threaded version of [mapfoldr(f, op, itr)](https://docs.julialang.org/en/stable/stdlib/collections/#Base.mapfoldr). Only the **mapping** part is parallelised.
 """
-function tmapfoldr{T<:AbstractArray}(f::Function, op::Function, itr::T)
+function tmapfoldr(f::Function, op::Function, itr::T) where T<:AbstractArray
 	return foldr(op, tmap(f, itr));
 end
