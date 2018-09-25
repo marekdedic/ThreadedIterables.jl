@@ -21,7 +21,7 @@ Multi-threaded version of [map!(f, destination, collection)](https://docs.julial
 """
 function tmap!(f::Function, destination::T, collection::U)::Nothing where {T<:AbstractArray, U<:AbstractArray}
 	ensureThreaded();
-	const typ = eltype(destination);
+	typ = eltype(destination);
 	dind = eachindex(destination);
 	cind = eachindex(collection);
 	Threads.@threads for i in 1:length(cind);

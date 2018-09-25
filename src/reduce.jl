@@ -8,7 +8,7 @@ Multi-threaded version of [reduce(op, v0, itr)](https://docs.julialang.org/en/st
 function treduce(op::Function, v0, itr::T) where T<:AbstractArray
 	ensureThreaded();
 	n = Threads.nthreads();
-	tmp = Vector{Any}(n);
+	tmp = Vector{Any}(undef, n);
 	ind = eachindex(itr);
 	len = length(ind);
 	if len > n
