@@ -3,7 +3,7 @@ workflows:
   main:
     jobs:
       - unit
-      - deploy-docs
+      - deploy-docs:
           filters:
             branches:
               only:
