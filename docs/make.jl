@@ -1,7 +1,7 @@
 using Documenter, ThreadedMap;
 
 makedocs(
-	format = :html,
+	format = Documenter.HTML(),
 	sitename = "ThreadedMap.jl",
 	modules = [ThreadedMap],
 	authors = "Marek Dědič",
