@@ -1,0 +1,19 @@
+version: 2.1
+workflows:
+  main:
+    jobs:
+      - unit
+
+job-references:
+  env:
+    docker:
+      - image: julia:latest
+
+jobs:
+  unit:
+    <<: *env
+    steps:
+      - checkout
+      - run:
+          name: Run Tests
+          command: julia --project test/runtests.jl
