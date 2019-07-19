@@ -3,6 +3,13 @@ workflows:
   main:
     jobs:
       - unit
+      - deploy-docs
+          filters:
+            branches:
+              only:
+                - CI-docs
+          requires:
+            - unit
 
 job-references:
   env: &env
@@ -20,3 +27,12 @@ jobs:
       - run:
           name: Upload Coverage Results
           command: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
+  deploy-docs:
+    <<: *env
+    steps:
+      - checkout
+      - run:
+          name: Deploy documentation to GitHub pages
+          command: |
+            julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));Pkg.instantiate()'
+            julia --project=docs/ docs/make.jl

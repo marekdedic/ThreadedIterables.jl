@@ -15,4 +15,8 @@ makedocs(
 			"mapfoldl.md",
 			"mapfoldr.md"]
 		]
-	);
+);
+
+deploydocs(
+	repo = "github.com/marekdedic/ThreadedMap.jl.git"
+);
