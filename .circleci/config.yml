@@ -16,4 +16,5 @@ jobs:
       - checkout
       - run:
           name: Run Tests
-          command: julia --project test/runtests.jl
+          working_directory: test
+          command: julia --project runtests.jl
