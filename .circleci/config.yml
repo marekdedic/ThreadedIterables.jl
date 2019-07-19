@@ -16,8 +16,7 @@ jobs:
       - checkout
       - run:
           name: Run Tests
-          working_directory: test
-          command: julia --project runtests.jl
+          command: julia --project --code-coverage=user test/runtests.jl
       - run:
           name: Upload Coverage Results
           command: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
