@@ -1,6 +1,6 @@
 name = "ThreadedMap"
 uuid = "11d239b0-c0b9-11e8-1935-d5cfa53abb03"
-authors = ["GenaBitu <genabitu@gmail.com>"]
+authors = ["Marek Dědič <developer@dedic.eu>"]
 version = "0.1.0"
 
 [extras]
