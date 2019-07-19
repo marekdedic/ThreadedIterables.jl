@@ -5,7 +5,7 @@ workflows:
       - unit
 
 job-references:
-  env:
+  env: &env
     docker:
       - image: julia:latest
 
