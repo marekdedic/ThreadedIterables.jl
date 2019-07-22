@@ -23,7 +23,7 @@ catch
 	"(not-git-repo)"
 end
 
-mktempdir(Documenter.Utilities.currentdir()) do temp
+mktempdir() do temp
 	# TODO: key
 	Documenter.git_push(Documenter.Utilities.currentdir(), temp, "github.com/marekdedic/ThreadedMap.jl.git"; target = "build", tag = get(ENV, "CIRCLE_TAG", ""), sha = sha, versions = ["stable" => "v^", "v#.#", "dev" => "dev"]);
 end
