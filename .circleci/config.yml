@@ -35,12 +35,12 @@ jobs:
   deploy-docs:
     <<: *env
     steps:
-      - checkout
       - run:
           name: Install git
           command: |
             apt-get update
             apt-get install -y git
+      - checkout
       - run:
           name: Deploy documentation to GitHub pages
           command: |
