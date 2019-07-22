@@ -2,12 +2,17 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - unit
+      - unit:
+          filters:
+            tags:
+              only: /.*/
       - deploy-docs:
           filters:
             branches:
               only:
                 - CI-docs
+            tags:
+              only: /.*/
           requires:
             - unit
 
