@@ -10,7 +10,7 @@ workflows:
           filters:
             branches:
               only:
-                - CI-docs
+                - master
             tags:
               only: /.*/
           requires:
