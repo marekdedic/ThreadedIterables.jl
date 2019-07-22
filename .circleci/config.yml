@@ -1,0 +1,16 @@
+version: 2.1
+workflows:
+  main:
+    jobs:
+      - job:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+
+jobs:
+  job:
+    docker:
+      - image: debian:stable
+    steps:
+      - run: echo ""
