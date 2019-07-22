@@ -24,7 +24,6 @@ catch
 end
 
 mktempdir() do temp
-	# TODO: Actually run the job on tags
 	# TODO: key
 	git_push(Utilities.currentdir(), temp, "github.com/marekdedic/ThreadedMap.jl.git"; target = "build", tag = get(ENV, "CIRCLE_TAG", ""), sha = sha, versions = ["stable" => "v^", "v#.#", "dev" => "dev"]);
 end
