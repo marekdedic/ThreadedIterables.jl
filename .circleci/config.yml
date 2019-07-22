@@ -37,6 +37,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install git
+          command: |
+            apt-get update
+            apt-get install -y git
+      - run:
           name: Deploy documentation to GitHub pages
           command: |
             julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));Pkg.instantiate()'
