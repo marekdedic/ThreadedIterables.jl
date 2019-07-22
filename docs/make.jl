@@ -25,7 +25,6 @@ if get(ENV, "CIRCLECI", "") == "true"
 	end
 
 	mktempdir() do temp
-		isdir("build") || mkpath("build");
-		Documenter.git_push(Documenter.Utilities.currentdir(), temp, "github.com/marekdedic/ThreadedMap.jl.git"; target = "build", tag = get(ENV, "CIRCLE_TAG", ""), sha = sha, versions = ["stable" => "v^", "v#.#", "dev" => "dev"]);
+		Documenter.git_push(Documenter.Utilities.currentdir(), temp, "github.com/marekdedic/ThreadedMap.jl.git"; target = "docs/build", tag = get(ENV, "CIRCLE_TAG", ""), sha = sha, versions = ["stable" => "v^", "v#.#", "dev" => "dev"]);
 	end
 end
