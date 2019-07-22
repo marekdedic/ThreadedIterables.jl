@@ -4,6 +4,9 @@ workflows:
     jobs:
       - unit:
           filters:
+            branches:
+              ignore:
+                - gh-pages
             tags:
               only: /.*/
       - deploy-docs:
