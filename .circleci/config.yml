@@ -9,6 +9,13 @@ workflows:
                 - gh-pages
             tags:
               only: /.*/
+      - build-docs:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+            tags:
+              only: /.*/
       - deploy-docs:
           filters:
             branches:
@@ -18,6 +25,7 @@ workflows:
               only: /.*/
           requires:
             - unit
+            - build-docs
 
 job-references:
   env: &env
@@ -40,7 +48,7 @@ jobs:
       - run:
           name: Upload Coverage Results
           command: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
-  deploy-docs:
+  build-docs:
     <<: *env
     steps:
       - run:
@@ -50,7 +58,32 @@ jobs:
             apt-get install -y git
       - checkout
       - run:
-          name: Deploy documentation to GitHub pages
+          name: Build documentation
           command: |
             julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));Pkg.instantiate()'
             julia --project=docs/ docs/make.jl
+      - persist_to_workspace:
+          root: docs/build
+          paths:
+            - "*"
+      - run:
+          name: Compress Artifacts
+          command: tar -cvf docs.tar docs/build
+      - store_artifacts:
+          path: docs.tar
+  deploy-docs:
+    <<: *env
+    steps:
+      - run:
+          name: Install git
+          command: |
+            apt-get update
+            apt-get install -y git
+      - checkout
+      - attach_workspace:
+          at: docs/build
+      - run:
+          name: Deploy documentation to GitHub pages
+          command: |
+            julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));Pkg.instantiate()'
+            julia --project=docs/ docs/deploy.jl
