@@ -66,6 +66,8 @@ jobs:
           root: docs/build
           paths:
             - "*"
+      - store_artifacts:
+          path: docs/build
   deploy-docs:
     <<: *env
     steps:
