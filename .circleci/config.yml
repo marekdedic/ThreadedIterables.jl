@@ -66,8 +66,11 @@ jobs:
           root: docs/build
           paths:
             - "*"
+      - run:
+          name: Compress Artifacts
+          command: tar -cvf docs.tar docs/build
       - store_artifacts:
-          path: docs/build
+          path: docs.tar
   deploy-docs:
     <<: *env
     steps:
