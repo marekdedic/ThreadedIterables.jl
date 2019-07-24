@@ -3,7 +3,7 @@ export treduce;
 """
     treduce(op::Function, itr::AbstractArray; init)
 
-Multi-threaded version of [reduce(op, itr; init)](https://docs.julialang.org/en/v0.7.0/base/collections/#Base.reduce-Tuple{Any,Any}). Note that function `op` must **not** change type!
+Multi-threaded version of [reduce(op, itr; init)](https://docs.julialang.org/en/v1.1/base/collections/#Base.reduce-Tuple{Any,Any}). Note that function `op` must **not** change type!
 """
 function treduce(op::Function, itr::T; init) where T<:AbstractArray
 	ensureThreaded();
@@ -37,7 +37,7 @@ end
 """
     treduce(op::Function, itr::AbstractArray)
 
-Multi-threaded version of [reduce(op, itr)](https://docs.julialang.org/en/v0.7.0/base/collections/#Base.reduce-Tuple{Any,Any}). Note that function `op` must **not** change type!
+Multi-threaded version of [reduce(op, itr)](https://docs.julialang.org/en/v1.1/base/collections/#Base.reduce-Tuple{Any,Any}). Note that function `op` must **not** change type!
 """
 function treduce(op::Function, itr::T) where T<:AbstractArray
 	ensureThreaded();
