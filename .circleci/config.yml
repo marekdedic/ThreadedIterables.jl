@@ -56,10 +56,12 @@ job-references:
 
   install_julia_in_docs: &install_julia_in_docs
     name: Install Julia dependencies
-    command: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+    command: |
+      cp docs/Project.toml docs/Project.toml.old
+      julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
 
   save_julia_in_docs: &save_julia_in_docs
-    key: deps-{{ checksum "Manifest.toml" }}-{{ checksum "docs/Project.toml" }}
+    key: deps-{{ checksum "Manifest.toml" }}-{{ checksum "docs/Project.toml.old" }}
     paths:
       - ~/.julia/compiled
       - ~/.julia/packages
