@@ -13,6 +13,7 @@ makedocs(
 			"reduce.md",
 			"mapreduce.md",
 			"mapfoldl.md",
-			"mapfoldr.md"]
+			"mapfoldr.md"
 		]
+	]
 );
