@@ -17,6 +17,11 @@ include("testMapfoldr.jl");
 				@test testTforeach();
 			end
 		end
+		@testset "tforeach(f, c1, c2)" begin
+			for i in 1:10000
+				@test testTforeachMultiple();
+			end
+		end
 	end
 	@testset "map" begin
 		@testset "tmap(f, c)" begin
