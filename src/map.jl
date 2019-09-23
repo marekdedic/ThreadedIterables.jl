@@ -22,12 +22,13 @@ end
 
 Multi-threaded version of [map!(f, destination, collection)](https://docs.julialang.org/en/v1.1/base/collections/#Base.map!). Currently only supports a single collection.
 """
-function tmap!(f::Function, destination::T, collection::U)::Nothing where {T<:AbstractArray, U<:AbstractArray}
+function tmap!(f::Function, destination::T, collection...)::T where T<:AbstractArray
 	ensureThreaded();
 	typ = eltype(destination);
 	dind = eachindex(destination);
-	cind = eachindex(collection);
+	cind = minimum(eachindex.(collection));
 	Threads.@threads for i in 1:length(cind);
-		destination[dind[i]] = convert(typ, f(collection[cind[i]]));
+		destination[dind[i]] = convert(typ, f(getindex.(collection, cind[i])...));
 	end
+	return destination;
 end
