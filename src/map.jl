@@ -5,11 +5,14 @@ export tmap, tmap!;
 
 Multi-threaded version of [map(f, c)](https://docs.julialang.org/en/v1.1/base/collections/#Base.map). Currently only supports a single collection.
 """
-function tmap(f::Function, c::T) where T<:AbstractArray
+function tmap(f::Function, c...)
 	ensureThreaded();
-	ret = similar(c, Any);
-	Threads.@threads for i in eachindex(c)
-		ret[i] = f(c[i]);
+	if !all(i->length(i) == length(c[1]), c)
+		throw(DimensionMismatch("dimensions must match"));
+	end
+	ret = similar(c[1], Any);
+	Threads.@threads for i in eachindex(c[1])
+		ret[i] = f(getindex.(c, i)...);
 	end
 	return reshape([ret...],size(ret)...);
 end
