@@ -27,18 +27,35 @@ include("testMapfoldr.jl");
 		@testset "tmap(f, c)" begin
 			@testset "Type stable" begin
 				for i in 1:10000
-					@test testTmap1Stable();
+					@test testTmapStable();
 				end
 			end
 			@testset "Type unstable" begin
 				for i in 1:10000
-					@test testTmap1Unstable();
+					@test testTmapUnstable();
+				end
+			end
+		end
+		@testset "tmap(f, c1, c2)" begin
+			@testset "Type stable" begin
+				for i in 1:10000
+					@test testTmapStableMultiple();
+				end
+			end
+			@testset "Type unstable" begin
+				for i in 1:10000
+					@test testTmapUnstableMultiple();
 				end
 			end
 		end
 		@testset "tmap!(f, destination, collection)" begin
 			for i in 1:10000
-				@test testTmap3();
+				@test testTmap!();
+			end
+		end
+		@testset "tmap!(f, destination, collection1, collection2)" begin
+			for i in 1:10000
+				@test testTmap!Multiple();
 			end
 		end
 	end
