@@ -51,3 +51,7 @@ function testTmap!Multiple()::Bool
 	tmap!((x, y)->2x + 3y, tDestArr, tSrcArr1, tSrcArr2);
 	return minimum(destArr .== tDestArr);
 end
+
+function testTmapMultipleDimensionMismatch()
+	tmap((x, y)->2x + 3y, [1, 2], [3, 4, 5]);
+end
