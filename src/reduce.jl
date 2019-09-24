@@ -15,10 +15,16 @@ function treduce(op::Function, itr::T; init) where T<:AbstractArray
 		Threads.@threads for i in 1:n
 			start = fld(len * (i - 1), n) + 1;
 			stop = fld(len * i, n);
-			tmp[i] = reduce(op, itr[ind[start:stop]]; init = init);
+			if i == 1
+				localInit = reduce(op, itr[ind[start:start]]; init = init);
+			else
+				localInit = reduce(op, itr[ind[start:start]]);
+			end
+			tmp[i] = reduce(op, itr[ind[nextind(ind, start):stop]]; init = localInit);
 		end
 	else
 		tmp = itr;
+		tmp[firstindex(tmp)] = reduce(op, tmp[firstindex(tmp):firstindex(tmp)]; init = init);
 		n = len;
 	end
 	tmp2 = Vector{Any}(undef, cld(n, 2));
@@ -26,7 +32,8 @@ function treduce(op::Function, itr::T; init) where T<:AbstractArray
 		nn = cld(n, 2);
 		Threads.@threads for j in 1:nn
 			stop = min(2j, n);
-			tmp2[j] = reduce(op, tmp[2j - 1:stop]; init = init);
+			localInit = reduce(op, tmp[2j - 1]);
+			tmp2[j] = reduce(op, tmp[2j:stop]; init = localInit);
 		end
 		n = nn;
 		tmp = tmp2
