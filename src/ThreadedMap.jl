@@ -9,11 +9,4 @@ include("mapfoldl.jl");
 include("mapfoldr.jl");
 include("reduce.jl");
 
-@deprecate treduce(op::Function, v0, itr::T) where T<:AbstractArray treduce(op, itr; init = v0) ;
-@deprecate tmapreduce(f::Function, op::Function, v0, itr::T) where T<:AbstractArray tmapreduce(f, op, itr; init = v0) ;
-@deprecate maptreduce(f::Function, op::Function, v0, itr::T) where T<:AbstractArray maptreduce(f, op, itr; init = v0) ;
-@deprecate tmaptreduce(f::Function, op::Function, v0, itr::T) where T<:AbstractArray tmaptreduce(f, op, itr; init = v0) ;
-@deprecate tmapfoldl(f::Function, op::Function, v0, itr::T) where T<:AbstractArray tmapfoldl(f, op, itr; init = v0) ;
-@deprecate tmapfoldr(f::Function, op::Function, v0, itr::T) where T<:AbstractArray tmapfoldr(f, op, itr; init = v0) ;
-
 end
