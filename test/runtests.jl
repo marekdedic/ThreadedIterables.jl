@@ -58,6 +58,9 @@ include("testMapfoldr.jl");
 				@test testTmap!Multiple();
 			end
 		end
+		@testset "tmap(f, c1, c2) where length(c1) != length(c2)" begin
+			@test_throws DimensionMismatch testTmapMultipleDimensionMismatch();
+		end
 	end
 	@testset "reduce" begin
 		@testset "reduce(op, v0, itr)" begin
