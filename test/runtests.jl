@@ -3,6 +3,8 @@ using Test;
 
 using Random;
 
+include("utils.jl");
+
 include("testForeach.jl");
 include("testMap.jl");
 include("testReduce.jl");
