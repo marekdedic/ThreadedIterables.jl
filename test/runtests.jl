@@ -12,6 +12,8 @@ include("testMapreduce.jl");
 include("testMapfoldl.jl");
 include("testMapfoldr.jl");
 
+include("testThreaded.jl");
+
 @testset "ThreadedMap.jl" begin
 	@testset "foreach" begin
 		@testset "tforeach(f, c)" begin
@@ -215,5 +217,9 @@ include("testMapfoldr.jl");
 				end
 			end
 		end
+	end
+	@testset "@threaded" begin
+		@test testThreaded();
+		@test testThreadedNested();
 	end
 end
