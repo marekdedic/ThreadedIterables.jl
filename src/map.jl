@@ -3,7 +3,7 @@ export tmap, tmap!;
 """
     tmap(f::Function, c::AbstractArray)::AbstractArray
 
-Multi-threaded version of [map(f, c)](https://docs.julialang.org/en/v1.1/base/collections/#Base.map).
+Multi-threaded version of [map(f, c)](https://docs.julialang.org/en/v1.2/base/collections/#Base.map).
 """
 function tmap(f::Function, c...)
 	ensureThreaded();
@@ -20,7 +20,7 @@ end
 """
     tmap!(f::Function, destination::AbstractArray, collection::AbstractArray)::Nothing
 
-Multi-threaded version of [map!(f, destination, collection)](https://docs.julialang.org/en/v1.1/base/collections/#Base.map!).
+Multi-threaded version of [map!(f, destination, collection)](https://docs.julialang.org/en/v1.2/base/collections/#Base.map!).
 """
 function tmap!(f::Function, destination::T, collection...)::T where T<:AbstractArray
 	ensureThreaded();
