@@ -1,5 +1,5 @@
 function testTforeach()::Bool
-	arr = rand(1:1000, rand(1:10, rand(1:4))...);
+	arr = randArray();
 	serial = 0;
 	parallel = Threads.Atomic{Int}(0);
 	foreach(x->serial+=x, arr);
@@ -8,8 +8,8 @@ function testTforeach()::Bool
 end
 
 function testTforeachMultiple()::Bool
-	arr1 = rand(1:1000, rand(1:10, rand(1:4))...);
-	arr2 = rand(1:1000, rand(1:10, rand(1:4))...);
+	arr1 = randArray();
+	arr2 = randArray();
 	serial1 = 0;
 	serial2 = 0;
 	parallel1 = Threads.Atomic{Int}(0);
