@@ -21,6 +21,9 @@ include("testThreaded.jl");
 				@test testTforeach();
 			end
 		end
+		@testset "tforeach(f, c::OffsetArray)" begin
+			@test testTforeachOffset();
+		end
 		@testset "tforeach(f, [])" begin
 			@test testTforeachEmpty();
 		end
@@ -28,6 +31,9 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testTforeachMultiple();
 			end
+		end
+		@testset "tforeach(f, c1::OffsetArray, c2::OffsetArray)" begin
+			@test testTforeachMultipleOffset();
 		end
 		@testset "tforeach(f, [], [])" begin
 			@test testTforeachMultipleEmpty();
@@ -46,6 +52,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmap(f, c::OffsetArray)" begin
+			@test testTmapOffset();
+		end
 		@testset "tmap(f, [])" begin
 			@test testTmapEmpty();
 		end
@@ -61,6 +70,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmap(f, c1::OffsetArray, c2::OffsetArray)" begin
+			@test testTmapMultipleOffset();
+		end
 		@testset "tmap(f, [], [])" begin
 			@test testTmapMultipleEmpty();
 		end
@@ -69,6 +81,9 @@ include("testThreaded.jl");
 				@test testTmap!();
 			end
 		end
+		@testset "tmap!(f, destination, collection::OffsetArray)" begin
+			@test testTmap!Offset();
+		end
 		@testset "tmap!(f, destination, [])" begin
 			@test testTmap!Empty();
 		end
@@ -76,6 +91,9 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testTmap!Multiple();
 			end
+		end
+		@testset "tmap!(f, destination, collection1::OffsetArray, collection2::OffsetArray)" begin
+			@test testTmap!MultipleOffset();
 		end
 		@testset "tmap!(f, destination, [], [])" begin
 			@test testTmap!MultipleEmpty();
@@ -90,6 +108,9 @@ include("testThreaded.jl");
 				@test testTreduce1();
 			end
 		end
+		@testset "reduce(op, v0, itr::OffsetArray)" begin
+			@test testTreduce1Offset();
+		end
 		@testset "reduce(op, v0, [])" begin
 			@test testTreduce1Empty();
 		end
@@ -97,6 +118,9 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testTreduce2();
 			end
+		end
+		@testset "reduce(op, itr::OffsetArray)" begin
+			@test testTreduce2Offset();
 		end
 		@testset "reduce(op, [])" begin
 			@test_throws ArgumentError testTreduce2Empty();
@@ -115,6 +139,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapreduce(f, op, itr::OffsetArray; init)" begin
+			@test testTmapreduce1Offset();
+		end
 		@testset "tmapreduce(f, op, []; init)" begin
 			@test testTmapreduce1Empty();
 		end
@@ -129,6 +156,9 @@ include("testThreaded.jl");
 					@test testTmapreduce1UnstableMultiple();
 				end
 			end
+		end
+		@testset "tmapreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
+			@test testTmapreduce1MultipleOffset();
 		end
 		@testset "tmapreduce(f, op, [], []; init)" begin
 			@test testTmapreduce1MultipleEmpty();
@@ -145,6 +175,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapreduce(f, op, itr::OffsetArray)" begin
+			@test testTmapreduce2Offset();
+		end
 		@testset "tmapreduce(f, op, [])" begin
 			@test_throws ArgumentError testTmapreduce2Empty();
 		end
@@ -160,6 +193,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
+			@test testTmapreduce2MultipleOffset();
+		end
 		@testset "tmapreduce(f, op, [], [])" begin
 			@test_throws ArgumentError testTmapreduce2MultipleEmpty();
 		end
@@ -167,6 +203,9 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testMaptreduce1();
 			end
+		end
+		@testset "maptreduce(f, op, itr::OffsetArray; init)" begin
+			@test testMaptreduce1Offset();
 		end
 		@testset "maptreduce(f, op, []; init)" begin
 			@test testMaptreduce1Empty();
@@ -176,6 +215,9 @@ include("testThreaded.jl");
 				@test testMaptreduce1Multiple();
 			end
 		end
+		@testset "maptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
+			@test testMaptreduce1MultipleOffset();
+		end
 		@testset "maptreduce(f, op, [], []; init)" begin
 			@test testMaptreduce1MultipleEmpty();
 		end
@@ -183,6 +225,9 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testMaptreduce2();
 			end
+		end
+		@testset "maptreduce(f, op, itr::OffsetArray)" begin
+			@test testMaptreduce2Offset();
 		end
 		@testset "maptreduce(f, op, [])" begin
 			@test_throws ArgumentError testMaptreduce2Empty();
@@ -192,6 +237,9 @@ include("testThreaded.jl");
 				@test testMaptreduce2Multiple();
 			end
 		end
+		@testset "maptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
+			@test testMaptreduce2MultipleOffset();
+		end
 		@testset "maptreduce(f, op, [], [])" begin
 			@test_throws ArgumentError testMaptreduce2MultipleEmpty();
 		end
@@ -199,6 +247,9 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testTmaptreduce1();
 			end
+		end
+		@testset "tmaptreduce(f, op, itr::OffsetArray; init)" begin
+			@test testTmaptreduce1Offset();
 		end
 		@testset "tmaptreduce(f, op, []; init)" begin
 			@test testTmaptreduce1Empty();
@@ -208,6 +259,9 @@ include("testThreaded.jl");
 				@test testTmaptreduce1Multiple();
 			end
 		end
+		@testset "tmaptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
+			@test testTmaptreduce1MultipleOffset();
+		end
 		@testset "tmaptreduce(f, op, [], []; init)" begin
 			@test testTmaptreduce1MultipleEmpty();
 		end
@@ -216,6 +270,9 @@ include("testThreaded.jl");
 				@test testTmaptreduce2();
 			end
 		end
+		@testset "tmatpreduce(f, op, itr::OffsetArray)" begin
+			@test testTmaptreduce2Offset();
+		end
 		@testset "tmatpreduce(f, op, [])" begin
 			@test_throws ArgumentError testTmaptreduce2Empty();
 		end
@@ -223,6 +280,9 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testTmaptreduce2Multiple();
 			end
+		end
+		@testset "tmatpreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
+			@test testTmaptreduce2MultipleOffset();
 		end
 		@testset "tmatpreduce(f, op, [], [])" begin
 			@test_throws ArgumentError testTmaptreduce2MultipleEmpty();
@@ -241,6 +301,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapfoldl(f, op, itr::OffsetArray; init)" begin
+			@test testTmapfoldl1Offset();
+		end
 		@testset "tmapfoldl(f, op, []; init)" begin
 			@test testTmapfoldl1Empty();
 		end
@@ -255,6 +318,9 @@ include("testThreaded.jl");
 					@test testTmapfoldl2Unstable();
 				end
 			end
+		end
+		@testset "tmapfoldl(f, op, itr::OffsetArray)" begin
+			@test testTmapfoldl2Offset();
 		end
 		@testset "tmapfoldl(f, op, [])" begin
 			@test_throws ArgumentError testTmapfoldl2Empty();
@@ -273,6 +339,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapfoldr(f, op, itr::OffsetArray; init)" begin
+			@test testTmapfoldr1Offset();
+		end
 		@testset "tmapfoldr(f, op, []; init)" begin
 			@test testTmapfoldr1Empty();
 		end
@@ -287,6 +356,9 @@ include("testThreaded.jl");
 					@test testTmapfoldr2Unstable();
 				end
 			end
+		end
+		@testset "tmapfoldr(f, op, itr::OffsetArray)" begin
+			@test testTmapfoldr2Offset();
 		end
 		@testset "tmapfoldr(f, op, [])" begin
 			@test_throws ArgumentError testTmapfoldr2Empty();
