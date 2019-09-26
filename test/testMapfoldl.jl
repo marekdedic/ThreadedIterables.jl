@@ -14,10 +14,6 @@ function testTmapfoldl1Unstable()::Bool
 	return mapfoldl(x->str[1:x], *, arr, init = init) == tmapfoldl(x->str[1:x], *, arr; init = init);
 end
 
-function testTmapfoldl1Offset()::Bool
-	return templateTestTmapfoldl1(offsetArray());
-end
-
 function testTmapfoldl1Empty()::Bool
 	return templateTestTmapfoldl1([]);
 end
@@ -36,10 +32,6 @@ function testTmapfoldl2Unstable()::Bool
 	arr = randStrArray();
 	str = lipsum();
 	return mapfoldl(x->str[1:x], *, arr) == tmapfoldl(x->str[1:x], *, arr);
-end
-
-function testTmapfoldl2Offset()::Bool
-	return templateTestTmapfoldl2(offsetArray());
 end
 
 function testTmapfoldl2Empty()

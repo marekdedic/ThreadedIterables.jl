@@ -14,10 +14,6 @@ function testTmapreduce1Unstable()::Bool
 	return mapreduce(x->str[1:x], *, arr; init = init) == tmapreduce(x->str[1:x], *, arr; init = init);
 end
 
-function testTmapreduce1Offset()::Bool
-	return templateTestTmapreduce1(offsetArray());
-end
-
 function testTmapreduce1Empty()::Bool
 	return templateTestTmapreduce1([]);
 end
@@ -40,19 +36,18 @@ function testTmapreduce1UnstableMultiple()::Bool
 	return mapreduce((x, y)->str[1:x + y], *, arr1, arr2; init = init) == tmapreduce((x, y)->str[1:x + y], *, arr1, arr2; init = init);
 end
 
-function testTmapreduce1MultipleOffset()::Bool
-	return templateTestTmapreduce1Multiple(offsetArray(), offsetArray());
-end
-
 function testTmapreduce1MultipleEmpty()::Bool
 	return templateTestTmapreduce1Multiple([], []);
 end
 
 #####
 
-function testTmapreduce2Stable()::Bool
-	arr = randArray();
+function templateTestTmapreduce2(arr::AbstractArray)::Bool
 	return mapreduce(x->2x, +, arr) == tmapreduce(x->2x, +, arr);
+end
+
+function testTmapreduce2Stable()::Bool
+	return templateTestTmapreduce2(randArray());
 end
 
 function testTmapreduce2Unstable()::Bool
@@ -61,32 +56,24 @@ function testTmapreduce2Unstable()::Bool
 	return mapreduce(x->str[1:x], *, arr) == tmapreduce(x->str[1:x], *, arr);
 end
 
-function testTmapreduce2Offset()::Bool
-	arr = offsetArray();
-	return mapreduce(x->2x, +, arr) == tmapreduce(x->2x, +, arr);
-end
-
 function testTmapreduce2Empty()
 	tmapreduce(x->2x, (x, y)->x, []);
 end
 
 #####
 
-function testTmapreduce2StableMultiple()::Bool
-	arr1, arr2 = rand2Arrays();
+function templateTestTmapreduce2Multiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
 	return mapreduce((x, y)->2x + 3y, +, arr1, arr2) == tmapreduce((x, y)->2x + 3y, +, arr1, arr2);
+end
+
+function testTmapreduce2StableMultiple()::Bool
+	return templateTestTmapreduce2Multiple(rand2Arrays()...);
 end
 
 function testTmapreduce2UnstableMultiple()::Bool
 	arr1, arr2 = rand2StrArrays();
 	str = lipsum();
 	return mapreduce((x, y)->str[1:x + y], *, arr1, arr2) == tmapreduce((x, y)->str[1:x + y], *, arr1, arr2);
-end
-
-function testTmapreduce2MultipleOffset()::Bool
-	arr1 = offsetArray();
-	arr2 = offsetArray();
-	return mapreduce((x, y)->2x + 3y, +, arr1, arr2) == tmapreduce((x, y)->2x + 3y, +, arr1, arr2);
 end
 
 function testTmapreduce2MultipleEmpty()
@@ -104,10 +91,6 @@ function testMaptreduce1()::Bool
 	return templateTestMaptreduce1(randArray());
 end
 
-function testMaptreduce1Offset()::Bool
-	return templateTestMaptreduce1(offsetArray());
-end
-
 function testMaptreduce1Empty()::Bool
 	return templateTestMaptreduce1([]);
 end
@@ -121,10 +104,6 @@ end
 
 function testMaptreduce1Multiple()::Bool
 	return templateTestMaptreduce1Multiple(rand2Arrays()...);
-end
-
-function testMaptreduce1MultipleOffset()::Bool
-	return templateTestMaptreduce1Multiple(offsetArray(), offsetArray());
 end
 
 function testMaptreduce1MultipleEmpty()::Bool
@@ -141,10 +120,6 @@ function testMaptreduce2()::Bool
 	return templateTestMaptreduce2(randArray());
 end
 
-function testMaptreduce2Offset()::Bool
-	return templateTestMaptreduce2(offsetArray());
-end
-
 function testMaptreduce2Empty()
 	maptreduce(x->2x, +, []);
 end
@@ -157,10 +132,6 @@ end
 
 function testMaptreduce2Multiple()::Bool
 	return templateTestMaptreduce2Multiple(rand2Arrays()...);
-end
-
-function testMaptreduce2MultipleOffset()::Bool
-	return templateTestMaptreduce2Multiple(offsetArray(), offsetArray());
 end
 
 function testMaptreduce2MultipleEmpty()
@@ -178,10 +149,6 @@ function testTmaptreduce1()::Bool
 	return templateTestTmaptreduce1(randArray());
 end
 
-function testTmaptreduce1Offset()::Bool
-	return templateTestTmaptreduce1(offsetArray());
-end
-
 function testTmaptreduce1Empty()::Bool
 	return templateTestTmaptreduce1([]);
 end
@@ -195,10 +162,6 @@ end
 
 function testTmaptreduce1Multiple()::Bool
 	return templateTestTmaptreduce1Multiple(rand2Arrays()...);
-end
-
-function testTmaptreduce1MultipleOffset()::Bool
-	return templateTestTmaptreduce1Multiple(offsetArray(), offsetArray());
 end
 
 function testTmaptreduce1MultipleEmpty()::Bool
@@ -215,10 +178,6 @@ function testTmaptreduce2()::Bool
 	return templateTestTmaptreduce2(randArray());
 end
 
-function testTmaptreduce2Offset()::Bool
-	return templateTestTmaptreduce2(offsetArray());
-end
-
 function testTmaptreduce2Empty()
 	tmaptreduce(x->2x, +, []);
 end
@@ -231,10 +190,6 @@ end
 
 function testTmaptreduce2Multiple()::Bool
 	return templateTestTmaptreduce2Multiple(rand2Arrays()...);
-end
-
-function testTmaptreduce2MultipleOffset()::Bool
-	return templateTestTmaptreduce2Multiple(offsetArray(), offsetArray());
 end
 
 function testTmaptreduce2MultipleEmpty()

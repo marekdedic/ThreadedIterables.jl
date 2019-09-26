@@ -7,10 +7,6 @@ function testTreduce1()::Bool
 	return templateTestTreduce1(randArray());
 end
 
-function testTreduce1Offset()
-	return templateTestTreduce1(offsetArray());
-end
-
 function testTreduce1Empty()::Bool
 	return templateTestTreduce1([]);
 end
@@ -23,10 +19,6 @@ end
 
 function testTreduce2()::Bool
 	templateTestTreduce2(randArray());
-end
-
-function testTreduce2Offset()
-	templateTestTreduce2(offsetArray());
 end
 
 function testTreduce2Empty()
