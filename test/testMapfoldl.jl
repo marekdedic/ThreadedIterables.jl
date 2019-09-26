@@ -28,5 +28,5 @@ function testTmapfoldl2Unstable()::Bool
 end
 
 function testTmapfoldl2Empty()
-	tmapfoldl(x->2x, +, []);
+	tmapfoldl(x->2x, (x, y)->x, []);
 end

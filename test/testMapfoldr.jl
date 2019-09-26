@@ -28,5 +28,5 @@ function testTmapfoldr2Unstable()::Bool
 end
 
 function testTmapfoldr2Empty()
-	tmapfoldr(x->2x, +, []);
+	tmapfoldr(x->2x, (x, y)->x, []);
 end
