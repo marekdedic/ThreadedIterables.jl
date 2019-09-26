@@ -1,7 +1,10 @@
-function testTmapreduce1Stable()::Bool
-	arr = randArray();
+function templateTestTmapreduce1(arr::AbstractArray)::Bool
 	init = randInit();
 	return mapreduce(x->2x, +, arr; init = init) == tmapreduce(x->2x, +, arr; init = init);
+end
+
+function testTmapreduce1Stable()::Bool
+	return templateTestTmapreduce1(randArray());
 end
 
 function testTmapreduce1Unstable()::Bool
@@ -11,15 +14,23 @@ function testTmapreduce1Unstable()::Bool
 	return mapreduce(x->str[1:x], *, arr; init = init) == tmapreduce(x->str[1:x], *, arr; init = init);
 end
 
+function testTmapreduce1Offset()::Bool
+	return templateTestTmapreduce1(offsetArray());
+end
+
 function testTmapreduce1Empty()::Bool
+	return templateTestTmapreduce1([]);
+end
+
+#####
+
+function templateTestTmapreduce1Multiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
 	init = randInit();
-	return mapreduce(x->2x, +, []; init = init) == tmapreduce(x->2x, +, []; init = init);
+	return mapreduce((x, y)->2x + 3y, +, arr1, arr2; init = init) == tmapreduce((x, y)->2x + 3y, +, arr1, arr2; init = init);
 end
 
 function testTmapreduce1StableMultiple()::Bool
-	arr1, arr2 = rand2Arrays();
-	init = randInit();
-	return mapreduce((x, y)->2x + 3y, +, arr1, arr2; init = init) == tmapreduce((x, y)->2x + 3y, +, arr1, arr2; init = init);
+	return templateTestTmapreduce1Multiple(rand2Arrays()...);
 end
 
 function testTmapreduce1UnstableMultiple()::Bool
@@ -29,10 +40,15 @@ function testTmapreduce1UnstableMultiple()::Bool
 	return mapreduce((x, y)->str[1:x + y], *, arr1, arr2; init = init) == tmapreduce((x, y)->str[1:x + y], *, arr1, arr2; init = init);
 end
 
-function testTmapreduce1MultipleEmpty()::Bool
-	init = randInit();
-	return mapreduce((x, y)->2x + 3y, +, [], []; init = init) == tmapreduce((x, y)->2x + 3y, +, [], []; init = init);
+function testTmapreduce1MultipleOffset()::Bool
+	return templateTestTmapreduce1Multiple(offsetArray(), offsetArray());
 end
+
+function testTmapreduce1MultipleEmpty()::Bool
+	return templateTestTmapreduce1Multiple([], []);
+end
+
+#####
 
 function testTmapreduce2Stable()::Bool
 	arr = randArray();
@@ -45,9 +61,16 @@ function testTmapreduce2Unstable()::Bool
 	return mapreduce(x->str[1:x], *, arr) == tmapreduce(x->str[1:x], *, arr);
 end
 
+function testTmapreduce2Offset()::Bool
+	arr = offsetArray();
+	return mapreduce(x->2x, +, arr) == tmapreduce(x->2x, +, arr);
+end
+
 function testTmapreduce2Empty()
 	tmapreduce(x->2x, (x, y)->x, []);
 end
+
+#####
 
 function testTmapreduce2StableMultiple()::Bool
 	arr1, arr2 = rand2Arrays();
@@ -60,84 +83,158 @@ function testTmapreduce2UnstableMultiple()::Bool
 	return mapreduce((x, y)->str[1:x + y], *, arr1, arr2) == tmapreduce((x, y)->str[1:x + y], *, arr1, arr2);
 end
 
+function testTmapreduce2MultipleOffset()::Bool
+	arr1 = offsetArray();
+	arr2 = offsetArray();
+	return mapreduce((x, y)->2x + 3y, +, arr1, arr2) == tmapreduce((x, y)->2x + 3y, +, arr1, arr2);
+end
+
 function testTmapreduce2MultipleEmpty()
 	tmapreduce((x, y)->2x + 3y, (x, y)->x, [], []);
 end
 
-function testMaptreduce1()::Bool
-	arr = randArray();
+#####
+
+function templateTestMaptreduce1(arr::AbstractArray)::Bool
 	init = randInit();
 	return mapreduce(x->2x, +, arr; init = init) == maptreduce(x->2x, +, arr; init = init);
 end
 
-function testMaptreduce1Empty()::Bool
-	init = randInit();
-	return mapreduce(x->2x, +, []; init = init) == maptreduce(x->2x, +, []; init = init);
+function testMaptreduce1()::Bool
+	return templateTestMaptreduce1(randArray());
 end
 
-function testMaptreduce1Multiple()::Bool
-	arr1, arr2 = rand2Arrays();
+function testMaptreduce1Offset()::Bool
+	return templateTestMaptreduce1(offsetArray());
+end
+
+function testMaptreduce1Empty()::Bool
+	return templateTestMaptreduce1([]);
+end
+
+#####
+
+function templateTestMaptreduce1Multiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
 	init = randInit();
 	return mapreduce((x, y)->2x + 3y, +, arr1, arr2; init = init) == maptreduce((x, y)->2x + 3y, +, arr1, arr2; init = init);
 end
 
+function testMaptreduce1Multiple()::Bool
+	return templateTestMaptreduce1Multiple(rand2Arrays()...);
+end
+
+function testMaptreduce1MultipleOffset()::Bool
+	return templateTestMaptreduce1Multiple(offsetArray(), offsetArray());
+end
+
 function testMaptreduce1MultipleEmpty()::Bool
-	init = randInit();
-	return mapreduce((x, y)->2x + 3y, +, [], []; init = init) == maptreduce((x, y)->2x + 3y, +, [], []; init = init);
+	return templateTestMaptreduce1Multiple([], []);
+end
+
+#####
+
+function templateTestMaptreduce2(arr::AbstractArray)::Bool
+	return mapreduce(x->2x, +, arr) == maptreduce(x->2x, +, arr);
 end
 
 function testMaptreduce2()::Bool
-	arr = randArray();
-	return mapreduce(x->2x, +, arr) == maptreduce(x->2x, +, arr);
+	return templateTestMaptreduce2(randArray());
+end
+
+function testMaptreduce2Offset()::Bool
+	return templateTestMaptreduce2(offsetArray());
 end
 
 function testMaptreduce2Empty()
 	maptreduce(x->2x, +, []);
 end
 
-function testMaptreduce2Multiple()::Bool
-	arr1, arr2 = rand2Arrays();
+#####
+
+function templateTestMaptreduce2Multiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
 	return mapreduce((x, y)->2x + 3y, +, arr1, arr2) == maptreduce((x, y)->2x + 3y, +, arr1, arr2);
+end
+
+function testMaptreduce2Multiple()::Bool
+	return templateTestMaptreduce2Multiple(rand2Arrays()...);
+end
+
+function testMaptreduce2MultipleOffset()::Bool
+	return templateTestMaptreduce2Multiple(offsetArray(), offsetArray());
 end
 
 function testMaptreduce2MultipleEmpty()
 	maptreduce((x, y)->2x + 3y, +, [], []);
 end
 
-function testTmaptreduce1()::Bool
-	arr = randArray();
+#####
+
+function templateTestTmaptreduce1(arr::AbstractArray)::Bool
 	init = randInit();
 	return mapreduce(x->2x, +, arr; init = init) == tmaptreduce(x->2x, +, arr; init = init);
 end
 
-function testTmaptreduce1Empty()::Bool
-	init = randInit();
-	return mapreduce(x->2x, +, []; init = init) == tmaptreduce(x->2x, +, []; init = init);
+function testTmaptreduce1()::Bool
+	return templateTestTmaptreduce1(randArray());
 end
 
-function testTmaptreduce1Multiple()::Bool
-	arr1, arr2 = rand2Arrays();
+function testTmaptreduce1Offset()::Bool
+	return templateTestTmaptreduce1(offsetArray());
+end
+
+function testTmaptreduce1Empty()::Bool
+	return templateTestTmaptreduce1([]);
+end
+
+###
+
+function templateTestTmaptreduce1Multiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
 	init = randInit();
 	return mapreduce((x, y)->2x + 3y, +, arr1, arr2; init = init) == tmaptreduce((x, y)->2x + 3y, +, arr1, arr2; init = init);
 end
 
+function testTmaptreduce1Multiple()::Bool
+	return templateTestTmaptreduce1Multiple(rand2Arrays()...);
+end
+
+function testTmaptreduce1MultipleOffset()::Bool
+	return templateTestTmaptreduce1Multiple(offsetArray(), offsetArray());
+end
+
 function testTmaptreduce1MultipleEmpty()::Bool
-	init = randInit();
-	return mapreduce((x, y)->2x + 3y, +, [], []; init = init) == tmaptreduce((x, y)->2x + 3y, +, [], []; init = init);
+	return templateTestTmaptreduce1Multiple([], []);
+end
+
+#####
+
+function templateTestTmaptreduce2(arr::AbstractArray)::Bool
+	return mapreduce(x->2x, +, arr) == tmaptreduce(x->2x, +, arr);
 end
 
 function testTmaptreduce2()::Bool
-	arr = randArray();
-	return mapreduce(x->2x, +, arr) == tmaptreduce(x->2x, +, arr);
+	return templateTestTmaptreduce2(randArray());
+end
+
+function testTmaptreduce2Offset()::Bool
+	return templateTestTmaptreduce2(offsetArray());
 end
 
 function testTmaptreduce2Empty()
 	tmaptreduce(x->2x, +, []);
 end
 
-function testTmaptreduce2Multiple()::Bool
-	arr1, arr2 = rand2Arrays();
+###
+
+function templateTestTmaptreduce2Multiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
 	return mapreduce((x, y)->2x + 3y, +, arr1, arr2) == tmaptreduce((x, y)->2x + 3y, +, arr1, arr2);
+end
+
+function testTmaptreduce2Multiple()::Bool
+	return templateTestTmaptreduce2Multiple(rand2Arrays()...);
+end
+
+function testTmaptreduce2MultipleOffset()::Bool
+	return templateTestTmaptreduce2Multiple(offsetArray(), offsetArray());
 end
 
 function testTmaptreduce2MultipleEmpty()
