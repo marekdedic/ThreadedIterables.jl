@@ -50,9 +50,12 @@ end
 
 #####
 
-function testTmapreduce2Stable()::Bool
-	arr = randArray();
+function templateTestTmapreduce2(arr::AbstractArray)::Bool
 	return mapreduce(x->2x, +, arr) == tmapreduce(x->2x, +, arr);
+end
+
+function testTmapreduce2Stable()::Bool
+	return templateTestTmapreduce2(randArray());
 end
 
 function testTmapreduce2Unstable()::Bool
@@ -62,8 +65,7 @@ function testTmapreduce2Unstable()::Bool
 end
 
 function testTmapreduce2Offset()::Bool
-	arr = offsetArray();
-	return mapreduce(x->2x, +, arr) == tmapreduce(x->2x, +, arr);
+	return templateTestTmapreduce2(offsetArray());
 end
 
 function testTmapreduce2Empty()
@@ -72,9 +74,12 @@ end
 
 #####
 
-function testTmapreduce2StableMultiple()::Bool
-	arr1, arr2 = rand2Arrays();
+function templateTestTmapreduce2Multiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
 	return mapreduce((x, y)->2x + 3y, +, arr1, arr2) == tmapreduce((x, y)->2x + 3y, +, arr1, arr2);
+end
+
+function testTmapreduce2StableMultiple()::Bool
+	return templateTestTmapreduce2Multiple(rand2Arrays()...);
 end
 
 function testTmapreduce2UnstableMultiple()::Bool
@@ -84,9 +89,7 @@ function testTmapreduce2UnstableMultiple()::Bool
 end
 
 function testTmapreduce2MultipleOffset()::Bool
-	arr1 = offsetArray();
-	arr2 = offsetArray();
-	return mapreduce((x, y)->2x + 3y, +, arr1, arr2) == tmapreduce((x, y)->2x + 3y, +, arr1, arr2);
+	return templateTestTmapreduce2Multiple(offsetArray(), offsetArray());
 end
 
 function testTmapreduce2MultipleEmpty()
