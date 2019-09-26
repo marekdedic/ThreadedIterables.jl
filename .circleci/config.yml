@@ -42,7 +42,7 @@ job-references:
     command: julia --project -e 'using Pkg; Pkg.instantiate()'
 
   save_julia: &save_julia
-    key: deps-{{ checksum "Manifest.toml" }}
+    key: deps-
     paths:
       - ~/.julia/compiled
       - ~/.julia/packages
