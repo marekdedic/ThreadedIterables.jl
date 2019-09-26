@@ -82,7 +82,7 @@ jobs:
 
       - run:
           name: Run Tests
-          command: julia --project --code-coverage=user test/runtests.jl
+          command: julia --code-coverage=user -e 'using Pkg; Pkg.test()'
       - run:
           name: Upload Coverage Results
           command: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
