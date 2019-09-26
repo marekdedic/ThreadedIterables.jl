@@ -11,8 +11,13 @@ function testTmapfoldl1Unstable()::Bool
 	return mapfoldl(x->str[1:x], *, arr, init = init) == tmapfoldl(x->str[1:x], *, arr; init = init);
 end
 
+function testTmapfoldl1Empty()::Bool
+	init = randInit();
+	return mapfoldl(x->2x, +, []; init = init) == tmapfoldl(x->2x, +, []; init = init);
+end
+
 function testTmapfoldl2Stable()::Bool
-	arr = rand(1:1000, rand(1:10, rand(1:4))...);
+	arr = randArray();
 	return mapfoldl(x->2x, +, arr) == tmapfoldl(x->2x, +, arr);
 end
 
@@ -20,4 +25,8 @@ function testTmapfoldl2Unstable()::Bool
 	arr = randStrArray();
 	str = lipsum();
 	return mapfoldl(x->str[1:x], *, arr) == tmapfoldl(x->str[1:x], *, arr);
+end
+
+function testTmapfoldl2Empty()
+	tmapfoldl(x->2x, (x, y)->x, []);
 end
