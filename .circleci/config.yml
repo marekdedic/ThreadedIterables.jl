@@ -34,7 +34,6 @@ job-references:
 
   restore_julia: &restore_julia
     keys:
-      - deps-{{ checksum "Manifest.toml" }}
       - deps-
 
   install_julia: &install_julia
@@ -50,9 +49,7 @@ job-references:
 
   restore_julia_in_docs: &restore_julia_in_docs
     keys:
-      - deps-{{ checksum "Manifest.toml" }}-{{ checksum "docs/Project.toml" }}
       - deps-{{ checksum "docs/Project.toml" }}
-      - deps-{{ checksum "Manifest.toml" }}
       - deps-
 
   install_julia_in_docs: &install_julia_in_docs
