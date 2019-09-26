@@ -219,7 +219,14 @@ include("testThreaded.jl");
 		end
 	end
 	@testset "@threaded" begin
-		@test testThreaded();
+		@test testThreadedForeach();
+		@test testThreadedMapfoldl();
+		@test testThreadedMapfoldr();
+		@test testThreadedMap();
+		@test testThreadedMap!();
+		@test testThreadedMapreduce();
+		@test testThreadedReduce();
+		@test testThreadedOther();
 		@test testThreadedNested();
 	end
 end
