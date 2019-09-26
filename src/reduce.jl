@@ -7,6 +7,9 @@ Multi-threaded version of [reduce(op, itr; init)](https://docs.julialang.org/en/
 """
 function treduce(op::Function, itr::T; init) where T<:AbstractArray
 	ensureThreaded();
+	if isempty(itr)
+		return init;
+	end
 	n = Threads.nthreads();
 	tmp = Vector{Any}(undef, n);
 	ind = eachindex(itr);
@@ -48,6 +51,9 @@ Multi-threaded version of [reduce(op, itr)](https://docs.julialang.org/en/v1.2/b
 """
 function treduce(op::Function, itr::T) where T<:AbstractArray
 	ensureThreaded();
+	if isempty(itr)
+		throw(ArgumentError("reducing over an empty collection is not allowed"))
+	end
 	n = Threads.nthreads();
 	tmp = Vector{Any}(undef, n);
 	ind = eachindex(itr);

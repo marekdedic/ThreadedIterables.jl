@@ -21,10 +21,16 @@ include("testThreaded.jl");
 				@test testTforeach();
 			end
 		end
+		@testset "tforeach(f, [])" begin
+			@test testTforeachEmpty();
+		end
 		@testset "tforeach(f, c1, c2)" begin
 			for i in 1:1000
 				@test testTforeachMultiple();
 			end
+		end
+		@testset "tforeach(f, [], [])" begin
+			@test testTforeachMultipleEmpty();
 		end
 	end
 	@testset "map" begin
@@ -40,6 +46,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmap(f, [])" begin
+			@test testTmapEmpty();
+		end
 		@testset "tmap(f, c1, c2)" begin
 			@testset "Type stable" begin
 				for i in 1:1000
@@ -52,15 +61,24 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmap(f, [], [])" begin
+			@test testTmapMultipleEmpty();
+		end
 		@testset "tmap!(f, destination, collection)" begin
 			for i in 1:1000
 				@test testTmap!();
 			end
 		end
+		@testset "tmap!(f, destination, [])" begin
+			@test testTmap!Empty();
+		end
 		@testset "tmap!(f, destination, collection1, collection2)" begin
 			for i in 1:1000
 				@test testTmap!Multiple();
 			end
+		end
+		@testset "tmap!(f, destination, [], [])" begin
+			@test testTmap!MultipleEmpty();
 		end
 		@testset "tmap(f, c1, c2) where length(c1) != length(c2)" begin
 			@test_throws DimensionMismatch testTmapMultipleDimensionMismatch();
@@ -72,10 +90,16 @@ include("testThreaded.jl");
 				@test testTreduce1();
 			end
 		end
+		@testset "reduce(op, v0, [])" begin
+			@test testTreduce1Empty();
+		end
 		@testset "reduce(op, itr)" begin
 			for i in 1:1000
 				@test testTreduce2();
 			end
+		end
+		@testset "reduce(op, [])" begin
+			@test_throws ArgumentError testTreduce2Empty();
 		end
 	end
 	@testset "mapreduce" begin
@@ -91,6 +115,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapreduce(f, op, []; init)" begin
+			@test testTmapreduce1Empty();
+		end
 		@testset "tmapreduce(f, op, itr1, itr2; init)" begin
 			@testset "Type stable" begin
 				for i in 1:1000
@@ -102,6 +129,9 @@ include("testThreaded.jl");
 					@test testTmapreduce1UnstableMultiple();
 				end
 			end
+		end
+		@testset "tmapreduce(f, op, [], []; init)" begin
+			@test testTmapreduce1MultipleEmpty();
 		end
 		@testset "tmapreduce(f, op, itr)" begin
 			@testset "Type stable" begin
@@ -115,6 +145,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapreduce(f, op, [])" begin
+			@test_throws ArgumentError testTmapreduce2Empty();
+		end
 		@testset "tmapreduce(f, op, itr1, itr2)" begin
 			@testset "Type stable" begin
 				for i in 1:1000
@@ -127,45 +160,72 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapreduce(f, op, [], [])" begin
+			@test_throws ArgumentError testTmapreduce2MultipleEmpty();
+		end
 		@testset "maptreduce(f, op, itr; init)" begin
 			for i in 1:1000
 				@test testMaptreduce1();
 			end
+		end
+		@testset "maptreduce(f, op, []; init)" begin
+			@test testMaptreduce1Empty();
 		end
 		@testset "maptreduce(f, op, itr1, itr2; init)" begin
 			for i in 1:1000
 				@test testMaptreduce1Multiple();
 			end
 		end
+		@testset "maptreduce(f, op, [], []; init)" begin
+			@test testMaptreduce1MultipleEmpty();
+		end
 		@testset "maptreduce(f, op, itr)" begin
 			for i in 1:1000
 				@test testMaptreduce2();
 			end
+		end
+		@testset "maptreduce(f, op, [])" begin
+			@test_throws ArgumentError testMaptreduce2Empty();
 		end
 		@testset "maptreduce(f, op, itr1, itr2)" begin
 			for i in 1:1000
 				@test testMaptreduce2Multiple();
 			end
 		end
+		@testset "maptreduce(f, op, [], [])" begin
+			@test_throws ArgumentError testMaptreduce2MultipleEmpty();
+		end
 		@testset "tmaptreduce(f, op, itr; init)" begin
 			for i in 1:1000
 				@test testTmaptreduce1();
 			end
+		end
+		@testset "tmaptreduce(f, op, []; init)" begin
+			@test testTmaptreduce1Empty();
 		end
 		@testset "tmaptreduce(f, op, itr1, itr2; init)" begin
 			for i in 1:1000
 				@test testTmaptreduce1Multiple();
 			end
 		end
+		@testset "tmaptreduce(f, op, [], []; init)" begin
+			@test testTmaptreduce1MultipleEmpty();
+		end
 		@testset "tmatpreduce(f, op, itr)" begin
 			for i in 1:1000
 				@test testTmaptreduce2();
 			end
 		end
+		@testset "tmatpreduce(f, op, [])" begin
+			@test_throws ArgumentError testTmaptreduce2Empty();
+		end
 		@testset "tmatpreduce(f, op, itr1, itr2)" begin
 			for i in 1:1000
 				@test testTmaptreduce2Multiple();
 			end
+		end
+		@testset "tmatpreduce(f, op, [], [])" begin
+			@test_throws ArgumentError testTmaptreduce2MultipleEmpty();
 		end
 	end
 	@testset "mapfoldl" begin
@@ -181,6 +241,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapfoldl(f, op, []; init)" begin
+			@test testTmapfoldl1Empty();
+		end
 		@testset "tmapfoldl(f, op, itr)" begin
 			@testset "Type stable" begin
 				for i in 1:1000
@@ -193,6 +256,11 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapfoldl(f, op, [])" begin
+			@test_throws ArgumentError testTmapfoldl2Empty();
+		end
+	end
+	@testset "mapfoldr" begin
 		@testset "tmapfoldr(f, op, itr; init)" begin
 			@testset "Type stable" begin
 				for i in 1:1000
@@ -205,6 +273,9 @@ include("testThreaded.jl");
 				end
 			end
 		end
+		@testset "tmapfoldr(f, op, []; init)" begin
+			@test testTmapfoldr1Empty();
+		end
 		@testset "tmapfoldr(f, op, itr)" begin
 			@testset "Type stable" begin
 				for i in 1:1000
@@ -216,6 +287,9 @@ include("testThreaded.jl");
 					@test testTmapfoldr2Unstable();
 				end
 			end
+		end
+		@testset "tmapfoldr(f, op, [])" begin
+			@test_throws ArgumentError testTmapfoldr2Empty();
 		end
 	end
 	@testset "@threaded" begin
