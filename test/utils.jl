@@ -20,6 +20,6 @@ function rand2StrArrays()::Tuple{Array{Int}, Array{Int}}
 	return rand(1:100, dims...), rand(1:100, dims...);
 end
 
-function randInit()::Float32
+function randInit()::Int
 	return rand(1:1000);
 end
