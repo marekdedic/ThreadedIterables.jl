@@ -1,6 +1,8 @@
 using ThreadedMap;
 using Test;
 
+using OffsetArrays;
+
 using Random;
 
 include("utils.jl");
