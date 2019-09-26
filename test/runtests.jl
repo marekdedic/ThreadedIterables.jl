@@ -99,7 +99,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "reduce(op, [])" begin
-			@test testTreduce2Empty();
+			@test_throws ArgumentError testTreduce2Empty();
 		end
 	end
 	@testset "mapreduce" begin
@@ -146,7 +146,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmapreduce(f, op, [])" begin
-			@test testTmapreduce2Empty();
+			@test_throws ArgumentError testTmapreduce2Empty();
 		end
 		@testset "tmapreduce(f, op, itr1, itr2)" begin
 			@testset "Type stable" begin
@@ -161,7 +161,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmapreduce(f, op, [], [])" begin
-			@test testTmapreduce2MultipleEmpty();
+			@test_throws ArgumentError testTmapreduce2MultipleEmpty();
 		end
 		@testset "maptreduce(f, op, itr; init)" begin
 			for i in 1:1000
@@ -185,7 +185,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "maptreduce(f, op, [])" begin
-			@test testMaptreduce2Empty();
+			@test_throws ArgumentError testMaptreduce2Empty();
 		end
 		@testset "maptreduce(f, op, itr1, itr2)" begin
 			for i in 1:1000
@@ -193,7 +193,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "maptreduce(f, op, [], [])" begin
-			@test testMaptreduce2MultipleEmpty();
+			@test_throws ArgumentError testMaptreduce2MultipleEmpty();
 		end
 		@testset "tmaptreduce(f, op, itr; init)" begin
 			for i in 1:1000
@@ -217,7 +217,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmatpreduce(f, op, [])" begin
-			@test testTmaptreduce2Empty();
+			@test_throws ArgumentError testTmaptreduce2Empty();
 		end
 		@testset "tmatpreduce(f, op, itr1, itr2)" begin
 			for i in 1:1000
@@ -225,7 +225,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmatpreduce(f, op, [], [])" begin
-			@test testTmaptreduce2MultipleEmpty();
+			@test_throws ArgumentError testTmaptreduce2MultipleEmpty();
 		end
 	end
 	@testset "mapfoldl" begin
@@ -257,7 +257,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmapfoldl(f, op, [])" begin
-			@test testTmapfoldl2Empty();
+			@test_throws ArgumentError testTmapfoldl2Empty();
 		end
 	end
 	@testset "mapfoldr" begin
@@ -289,7 +289,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmapfoldr(f, op, [])" begin
-			@test testTmapfoldr2Empty();
+			@test_throws ArgumentError testTmapfoldr2Empty();
 		end
 	end
 	@testset "@threaded" begin
