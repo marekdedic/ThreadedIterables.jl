@@ -9,4 +9,6 @@ include("mapfoldl.jl");
 include("mapfoldr.jl");
 include("reduce.jl");
 
+include("threaded.jl");
+
 end
