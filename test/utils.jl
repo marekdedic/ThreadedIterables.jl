@@ -1,9 +1,9 @@
 function randArray()::Array{Int}
-	arr = rand(1:1000, rand(1:10, rand(1:4))...);
+	return rand(1:1000, rand(1:10, rand(1:4))...);
 end
 
 function randStrArray()::Array{Int}
-	arr = rand(1:100, rand(1:4, rand(1:3))...);
+	return rand(1:100, rand(1:4, rand(1:3))...);
 end
 
 function lipsum()::String
