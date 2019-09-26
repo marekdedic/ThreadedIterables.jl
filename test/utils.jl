@@ -2,10 +2,6 @@ function randArray()::Array{Int}
 	return rand(1:1000, rand(1:10, rand(1:4))...);
 end
 
-function offsetArray()::OffsetArray{Int}
-	return OffsetArray(1:10, -4);
-end
-
 function randStrArray()::Array{Int}
 	return rand(1:100, rand(1:4, rand(1:3))...);
 end
