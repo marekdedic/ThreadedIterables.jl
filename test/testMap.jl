@@ -1,32 +1,42 @@
+function templateTestTmap(arr::AbstractArray)::Bool
+	return all(map(x->2x, arr) .== tmap(x->2x, arr));
+end
+
 function testTmapStable()::Bool
-	arr = randArray();
-	return minimum(map(x->2x, arr) .== tmap(x->2x, arr));
+	return templateTestTmap(randArray());
 end
 
 function testTmapUnstable()::Bool
 	arr = randStrArray();
 	str = lipsum();
-	return minimum(map(x->str[1:x], arr) .== tmap(x->str[1:x], arr));
+	return all(map(x->str[1:x], arr) .== tmap(x->str[1:x], arr));
 end
 
 function testTmapEmpty()::Bool
-	return map(x->2x, []) == tmap(x->2x, []);
+	return templateTestTmap([]);
+end
+
+#####
+
+function templateTestTmapMultiple(arr1::AbstractArray, arr2::AbstractArray)::Bool
+	return all(map((x, y)->2x + 3y, arr1, arr2) .== tmap((x, y)->2x + 3y, arr1, arr2));
 end
 
 function testTmapStableMultiple()::Bool
-	arr1, arr2 = rand2Arrays();
-	return minimum(map((x, y)->2x + 3y, arr1, arr2) .== tmap((x, y)->2x + 3y, arr1, arr2));
+	return templateTestTmapMultiple(rand2Arrays()...);
 end
 
 function testTmapUnstableMultiple()::Bool
 	arr1, arr2 = rand2StrArrays();
 	str = lipsum();
-	return minimum(map((x, y)->str[1:x + y], arr1, arr2) .== tmap((x, y)->str[1:x + y], arr1, arr2));
+	return all(map((x, y)->str[1:x + y], arr1, arr2) .== tmap((x, y)->str[1:x + y], arr1, arr2));
 end
 
 function testTmapMultipleEmpty()::Bool
-	return map((x, y)->2x + 3y, [], []) == tmap((x, y)->2x + 3y, [], []);
+	return templateTestTmapMultiple([], []);
 end
+
+#####
 
 function testTmap!()::Bool
 	n = rand(1:2);
@@ -38,7 +48,7 @@ function testTmap!()::Bool
 	tDestArr = deepcopy(destArr);
 	map!(x->2x, destArr, srcArr);
 	tmap!(x->2x, tDestArr, tSrcArr);
-	return minimum(destArr .== tDestArr);
+	return all(destArr .== tDestArr);
 end
 
 function testTmap!Empty()::Bool
@@ -47,8 +57,10 @@ function testTmap!Empty()::Bool
 	tDestArr = deepcopy(destArr);
 	map!(x->2x, destArr, []);
 	tmap!(x->2x, tDestArr, []);
-	return minimum(destArr .== tDestArr);
+	return all(destArr .== tDestArr);
 end
+
+#####
 
 function testTmap!Multiple()::Bool
 	n = rand(1:2);
@@ -62,7 +74,7 @@ function testTmap!Multiple()::Bool
 	tDestArr = deepcopy(destArr);
 	map!((x, y)->2x + 3y, destArr, srcArr1, srcArr2);
 	tmap!((x, y)->2x + 3y, tDestArr, tSrcArr1, tSrcArr2);
-	return minimum(destArr .== tDestArr);
+	return all(destArr .== tDestArr);
 end
 
 function testTmap!MultipleEmpty()::Bool
@@ -71,7 +83,7 @@ function testTmap!MultipleEmpty()::Bool
 	tDestArr = deepcopy(destArr);
 	map!((x, y)->2x + 3y, destArr, [], []);
 	tmap!((x, y)->2x + 3y, tDestArr, [], []);
-	return minimum(destArr .== tDestArr);
+	return all(destArr .== tDestArr);
 end
 
 function testTmapMultipleDimensionMismatch()

@@ -1,7 +1,10 @@
-function testTmapfoldr1Stable()::Bool
-	arr = randArray();
+function templateTestTmapfoldr1(arr::AbstractArray)::Bool
 	init = randInit();
 	return mapfoldr(x->2x, +, arr; init = init) == tmapfoldr(x->2x, +, arr; init = init);
+end
+
+function testTmapfoldr1Stable()::Bool
+	return templateTestTmapfoldr1(randArray());
 end
 
 function testTmapfoldr1Unstable()::Bool
@@ -12,13 +15,17 @@ function testTmapfoldr1Unstable()::Bool
 end
 
 function testTmapfoldr1Empty()::Bool
-	init = randInit();
-	return mapfoldr(x->2x, +, []; init = init) == tmapfoldr(x->2x, +, []; init = init);
+	return templateTestTmapfoldr1([]);
+end
+
+#####
+
+function templateTestTmapfoldr2(arr::AbstractArray)::Bool
+	return mapfoldr(x->2x, +, arr) == tmapfoldr(x->2x, +, arr);
 end
 
 function testTmapfoldr2Stable()::Bool
-	arr = randArray();
-	return mapfoldr(x->2x, +, arr) == tmapfoldr(x->2x, +, arr);
+	return templateTestTmapfoldr2(randArray());
 end
 
 function testTmapfoldr2Unstable()::Bool
