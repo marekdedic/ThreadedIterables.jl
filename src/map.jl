@@ -10,6 +10,7 @@ function tmap(f::Function, c...)
 	if !all(i->length(i) == length(c[1]), c)
 		throw(DimensionMismatch("dimensions must match"));
 	end
+	# TODO: Allocate an array using eltype of f applied to the first element of c[1]. Then go over all elements and use Base.promote_type if the eltype doesn't match. Also, probably this needs to be done per-thread and then joined.
 	ret = similar(c[1], Any);
 	Threads.@threads for i in eachindex(c[1])
 		ret[i] = f(getindex.(c, i)...);
