@@ -1,9 +1,9 @@
-using Documenter, ThreadedMap;
+using Documenter, Threaded;
 
 makedocs(
 	format = Documenter.HTML(),
-	sitename = "ThreadedMap.jl",
-	modules = [ThreadedMap],
+	sitename = "Threaded.jl",
+	modules = [Threaded],
 	authors = "Marek Dědič",
 	pages = Any[
 		"Home" => "index.md",
