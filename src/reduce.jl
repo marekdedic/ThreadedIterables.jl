@@ -16,8 +16,8 @@ function treduce(op::Function, itr::T; init) where T<:AbstractArray
 	len = length(ind);
 	if len > n
 		Threads.@threads for i in 1:n
-			start = fld(len * (i - 1), n) + 1;
-			stop = fld(len * i, n);
+			start = fld(len * (i - 1), n) + firstindex(ind);
+			stop = fld(len * i, n) + firstindex(ind) - 1;
 			if i == 1
 				localInit = reduce(op, itr[ind[start:start]]; init = init);
 			else
@@ -60,8 +60,8 @@ function treduce(op::Function, itr::T) where T<:AbstractArray
 	len = length(ind);
 	if len > n
 		Threads.@threads for i in 1:n
-			start = fld(len * (i - 1), n) + 1;
-			stop = fld(len * i, n);
+			start = fld(len * (i - 1), n) + firstindex(ind);
+			stop = fld(len * i, n) + firstindex(ind) - 1;
 			tmp[i] = reduce(op, itr[ind[start:stop]]);
 		end
 	else
