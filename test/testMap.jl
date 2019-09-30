@@ -59,16 +59,6 @@ function testTmap!()::Bool
 	return all(destArr .== tDestArr);
 end
 
-function testTmap!Offset()::Bool
-	srcArr = offsetArray();
-	destArr = deepcopy(srcArr);
-	tSrcArr = deepcopy(srcArr);
-	tDestArr = deepcopy(destArr);
-	map!(x->2x, destArr, srcArr);
-	tmap!(x->2x, tDestArr, tSrcArr);
-	return all(destArr .== tDestArr);
-end
-
 function testTmap!Empty()::Bool
 	destDim = rand(1:3, rand(1:2));
 	destArr = rand(1:1000, destDim...);
@@ -87,18 +77,6 @@ function testTmap!Multiple()::Bool
 	srcArr1 = rand(1:1000, srcDim...);
 	srcArr2 = rand(1:1000, srcDim...);
 	destArr = rand(1:1000, destDim...);
-	tSrcArr1 = deepcopy(srcArr1);
-	tSrcArr2 = deepcopy(srcArr2);
-	tDestArr = deepcopy(destArr);
-	map!((x, y)->2x + 3y, destArr, srcArr1, srcArr2);
-	tmap!((x, y)->2x + 3y, tDestArr, tSrcArr1, tSrcArr2);
-	return all(destArr .== tDestArr);
-end
-
-function testTmap!MultipleOffset()::Bool
-	srcArr1 = offsetArray();
-	srcArr2 = offsetArray();
-	destArr = deepcopy(srcArr1);
 	tSrcArr1 = deepcopy(srcArr1);
 	tSrcArr2 = deepcopy(srcArr2);
 	tDestArr = deepcopy(destArr);

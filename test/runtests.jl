@@ -83,9 +83,6 @@ include("testThreaded.jl");
 				@test testTmap!();
 			end
 		end
-		@testset "tmap!(f, destination, collection::OffsetArray)" begin
-			@test testTmap!Offset();
-		end
 		@testset "tmap!(f, destination, [])" begin
 			@test testTmap!Empty();
 		end
@@ -93,9 +90,6 @@ include("testThreaded.jl");
 			for i in 1:1000
 				@test testTmap!Multiple();
 			end
-		end
-		@testset "tmap!(f, destination, collection1::OffsetArray, collection2::OffsetArray)" begin
-			@test testTmap!MultipleOffset();
 		end
 		@testset "tmap!(f, destination, [], [])" begin
 			@test testTmap!MultipleEmpty();
