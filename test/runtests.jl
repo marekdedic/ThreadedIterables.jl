@@ -1,4 +1,4 @@
-using ThreadedMap;
+using Threaded;
 using Test;
 
 using OffsetArrays;
@@ -16,7 +16,7 @@ include("testMapfoldr.jl");
 
 include("testThreaded.jl");
 
-@testset "ThreadedMap.jl" begin
+@testset "Threaded.jl" begin
 	@testset "foreach" begin
 		@testset "tforeach(f, c)" begin
 			for i in 1:1000
