@@ -1,4 +1,4 @@
-module ThreadedMap
+module Threaded
 
 include("ensureThreaded.jl")
 
