@@ -2,7 +2,22 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - unit:
+      - unit-1.0:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+            tags:
+              only: /.*/
+      - unit-1.1:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+            tags:
+              only: /.*/
+      - unit-latest:
+          coverage: true
           filters:
             branches:
               ignore:
@@ -28,7 +43,15 @@ workflows:
             - build-docs
 
 job-references:
-  env: &env
+  env-1.0: &env-1.0
+    docker:
+      - image: julia:1.0
+
+  env-1.1: &env-1.1
+    docker:
+      - image: julia:1.1
+
+  env-latest: &env-latest
     docker:
       - image: julia:latest
 
@@ -65,9 +88,7 @@ job-references:
       - ~/.julia/packages
       - ~/.julia/registries
 
-jobs:
-  unit:
-    <<: *env
+  unit: &unit
     steps:
       - run:
           name: Install git
@@ -83,11 +104,28 @@ jobs:
       - run:
           name: Run Tests
           command: julia --project -e 'using Pkg; Pkg.test(; coverage = true);'
-      - run:
-          name: Upload Coverage Results
-          command: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder());'
+      - when:
+          condition: <<parameters.coverage>>
+          steps:
+            - run:
+                name: Upload Coverage Results
+                command: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder());'
+
+jobs:
+  unit-1.0:
+    <<: *env-1.0
+    <<: *unit
+
+  unit-1.1:
+    <<: *env-1.1
+    <<: *unit
+
+  unit-latest:
+    <<: *env-latest
+    <<: *unit
+
   build-docs:
-    <<: *env
+    <<: *env-latest
     steps:
       - run:
           name: Install git
@@ -113,7 +151,7 @@ jobs:
       - store_artifacts:
           path: docs.tar
   deploy-docs:
-    <<: *env
+    <<: *env-latest
     steps:
       - run:
           name: Install git
