@@ -39,7 +39,7 @@ workflows:
             tags:
               only: /.*/
           requires:
-            - unit
+            - unit-latest
             - build-docs
 
 job-references:
