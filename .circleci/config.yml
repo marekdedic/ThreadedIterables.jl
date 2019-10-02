@@ -2,14 +2,14 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - unit-1.0:
+      - unit-1_0:
           filters:
             branches:
               ignore:
                 - gh-pages
             tags:
               only: /.*/
-      - unit-1.1:
+      - unit-1_1:
           filters:
             branches:
               ignore:
@@ -43,11 +43,11 @@ workflows:
             - build-docs
 
 job-references:
-  env-1.0: &env-1.0
+  env-1_0: &env-1_0
     docker:
       - image: julia:1.0
 
-  env-1.1: &env-1.1
+  env-1_1: &env-1_1
     docker:
       - image: julia:1.1
 
@@ -112,12 +112,12 @@ job-references:
                 command: julia -e 'using Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder());'
 
 jobs:
-  unit-1.0:
-    <<: *env-1.0
+  unit-1_0:
+    <<: *env-1_0
     <<: *unit
 
-  unit-1.1:
-    <<: *env-1.1
+  unit-1_1:
+    <<: *env-1_1
     <<: *unit
 
   unit-latest:
