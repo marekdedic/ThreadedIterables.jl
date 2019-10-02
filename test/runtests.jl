@@ -141,23 +141,25 @@ include("testThreaded.jl");
 		@testset "tmapreduce(f, op, []; init)" begin
 			@test testTmapreduce1Empty();
 		end
-		@testset "tmapreduce(f, op, itr1, itr2; init)" begin
-			@testset "Type stable" begin
-				for i in 1:1000
-					@test testTmapreduce1StableMultiple();
+		if VERSION >= v"1.2"
+			@testset "tmapreduce(f, op, itr1, itr2; init)" begin
+				@testset "Type stable" begin
+					for i in 1:1000
+						@test testTmapreduce1StableMultiple();
+					end
+				end
+				@testset "Type unstable" begin
+					for i in 1:1000
+						@test testTmapreduce1UnstableMultiple();
+					end
 				end
 			end
-			@testset "Type unstable" begin
-				for i in 1:1000
-					@test testTmapreduce1UnstableMultiple();
-				end
+			@testset "tmapreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
+				@test testTmapreduce1MultipleOffset();
 			end
-		end
-		@testset "tmapreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
-			@test testTmapreduce1MultipleOffset();
-		end
-		@testset "tmapreduce(f, op, [], []; init)" begin
-			@test testTmapreduce1MultipleEmpty();
+			@testset "tmapreduce(f, op, [], []; init)" begin
+				@test testTmapreduce1MultipleEmpty();
+			end
 		end
 		@testset "tmapreduce(f, op, itr)" begin
 			@testset "Type stable" begin
@@ -177,23 +179,25 @@ include("testThreaded.jl");
 		@testset "tmapreduce(f, op, [])" begin
 			@test_throws ArgumentError testTmapreduce2Empty();
 		end
-		@testset "tmapreduce(f, op, itr1, itr2)" begin
-			@testset "Type stable" begin
-				for i in 1:1000
-					@test testTmapreduce2StableMultiple();
+		if VERSION >= v"1.2"
+			@testset "tmapreduce(f, op, itr1, itr2)" begin
+				@testset "Type stable" begin
+					for i in 1:1000
+						@test testTmapreduce2StableMultiple();
+					end
+				end
+				@testset "Type unstable" begin
+					for i in 1:1000
+						@test testTmapreduce2UnstableMultiple();
+					end
 				end
 			end
-			@testset "Type unstable" begin
-				for i in 1:1000
-					@test testTmapreduce2UnstableMultiple();
-				end
+			@testset "tmapreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
+				@test testTmapreduce2MultipleOffset();
 			end
-		end
-		@testset "tmapreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
-			@test testTmapreduce2MultipleOffset();
-		end
-		@testset "tmapreduce(f, op, [], [])" begin
-			@test_throws ArgumentError testTmapreduce2MultipleEmpty();
+			@testset "tmapreduce(f, op, [], [])" begin
+				@test_throws ArgumentError testTmapreduce2MultipleEmpty();
+			end
 		end
 		@testset "maptreduce(f, op, itr; init)" begin
 			for i in 1:1000
@@ -206,16 +210,18 @@ include("testThreaded.jl");
 		@testset "maptreduce(f, op, []; init)" begin
 			@test testMaptreduce1Empty();
 		end
-		@testset "maptreduce(f, op, itr1, itr2; init)" begin
-			for i in 1:1000
-				@test testMaptreduce1Multiple();
+		if VERSION >= v"1.2"
+			@testset "maptreduce(f, op, itr1, itr2; init)" begin
+				for i in 1:1000
+					@test testMaptreduce1Multiple();
+				end
 			end
-		end
-		@testset "maptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
-			@test testMaptreduce1MultipleOffset();
-		end
-		@testset "maptreduce(f, op, [], []; init)" begin
-			@test testMaptreduce1MultipleEmpty();
+			@testset "maptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
+				@test testMaptreduce1MultipleOffset();
+			end
+			@testset "maptreduce(f, op, [], []; init)" begin
+				@test testMaptreduce1MultipleEmpty();
+			end
 		end
 		@testset "maptreduce(f, op, itr)" begin
 			for i in 1:1000
@@ -228,16 +234,18 @@ include("testThreaded.jl");
 		@testset "maptreduce(f, op, [])" begin
 			@test_throws ArgumentError testMaptreduce2Empty();
 		end
-		@testset "maptreduce(f, op, itr1, itr2)" begin
-			for i in 1:1000
-				@test testMaptreduce2Multiple();
+		if VERSION >= v"1.2"
+			@testset "maptreduce(f, op, itr1, itr2)" begin
+				for i in 1:1000
+					@test testMaptreduce2Multiple();
+				end
 			end
-		end
-		@testset "maptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
-			@test testMaptreduce2MultipleOffset();
-		end
-		@testset "maptreduce(f, op, [], [])" begin
-			@test_throws ArgumentError testMaptreduce2MultipleEmpty();
+			@testset "maptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
+				@test testMaptreduce2MultipleOffset();
+			end
+			@testset "maptreduce(f, op, [], [])" begin
+				@test_throws ArgumentError testMaptreduce2MultipleEmpty();
+			end
 		end
 		@testset "tmaptreduce(f, op, itr; init)" begin
 			for i in 1:1000
@@ -250,18 +258,20 @@ include("testThreaded.jl");
 		@testset "tmaptreduce(f, op, []; init)" begin
 			@test testTmaptreduce1Empty();
 		end
-		@testset "tmaptreduce(f, op, itr1, itr2; init)" begin
-			for i in 1:1000
-				@test testTmaptreduce1Multiple();
+		if VERSION >= v"1.2"
+			@testset "tmaptreduce(f, op, itr1, itr2; init)" begin
+				for i in 1:1000
+					@test testTmaptreduce1Multiple();
+				end
+			end
+			@testset "tmaptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
+				@test testTmaptreduce1MultipleOffset();
+			end
+			@testset "tmaptreduce(f, op, [], []; init)" begin
+				@test testTmaptreduce1MultipleEmpty();
 			end
 		end
-		@testset "tmaptreduce(f, op, itr1::OffsetArray, itr2::OffsetArray; init)" begin
-			@test testTmaptreduce1MultipleOffset();
-		end
-		@testset "tmaptreduce(f, op, [], []; init)" begin
-			@test testTmaptreduce1MultipleEmpty();
-		end
-		@testset "tmatpreduce(f, op, itr)" begin
+		@testset "tmaptpreduce(f, op, itr)" begin
 			for i in 1:1000
 				@test testTmaptreduce2();
 			end
@@ -269,19 +279,21 @@ include("testThreaded.jl");
 		@testset "tmatpreduce(f, op, itr::OffsetArray)" begin
 			@test testTmaptreduce2Offset();
 		end
-		@testset "tmatpreduce(f, op, [])" begin
+		@testset "tmaptpreduce(f, op, [])" begin
 			@test_throws ArgumentError testTmaptreduce2Empty();
 		end
-		@testset "tmatpreduce(f, op, itr1, itr2)" begin
-			for i in 1:1000
-				@test testTmaptreduce2Multiple();
+		if VERSION >= v"1.2"
+			@testset "tmaptpreduce(f, op, itr1, itr2)" begin
+				for i in 1:1000
+					@test testTmaptreduce2Multiple();
+				end
 			end
-		end
-		@testset "tmatpreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
-			@test testTmaptreduce2MultipleOffset();
-		end
-		@testset "tmatpreduce(f, op, [], [])" begin
-			@test_throws ArgumentError testTmaptreduce2MultipleEmpty();
+			@testset "tmatpreduce(f, op, itr1::OffsetArray, itr2::OffsetArray)" begin
+				@test testTmaptreduce2MultipleOffset();
+			end
+			@testset "tmaptpreduce(f, op, [], [])" begin
+				@test_throws ArgumentError testTmaptreduce2MultipleEmpty();
+			end
 		end
 	end
 	@testset "mapfoldl" begin
