@@ -89,6 +89,10 @@ job-references:
       - ~/.julia/registries
 
   unit: &unit
+    parameters:
+      coverage:
+        type: boolean
+        default: false
     steps:
       - run:
           name: Install git
