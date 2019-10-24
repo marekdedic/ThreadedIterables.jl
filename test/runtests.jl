@@ -1,4 +1,4 @@
-using Threaded;
+using ThreadedIterables;
 using Test;
 
 using Random;
@@ -14,7 +14,7 @@ include("testMapfoldr.jl");
 
 include("testThreaded.jl");
 
-@testset "Threaded.jl" begin
+@testset "ThreadedIterables.jl" begin
 	@testset "foreach" begin
 		@testset "tforeach(f, c)" begin
 			for i in 1:1000
