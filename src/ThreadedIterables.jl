@@ -1,4 +1,4 @@
-module Threaded
+module ThreadedIterables
 
 include("ensureThreaded.jl")
 
