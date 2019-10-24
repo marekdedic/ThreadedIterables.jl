@@ -2,7 +2,7 @@ using Documenter, Threaded;
 
 makedocs(
 	format = Documenter.HTML(),
-	sitename = "Threaded.jl",
+	sitename = "ThreadedIterables.jl",
 	modules = [Threaded],
 	authors = "Marek Dědič",
 	pages = Any[
