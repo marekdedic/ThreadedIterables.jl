@@ -1,4 +1,4 @@
-# Threaded.jl Documentation
+# ThreadedIterables.jl Documentation
 
 This package implements Multi-threaded variants of the mapping functions (currently `foreach`, `map`, `reduce`, `mapreduce`, `mapfoldl` and `mapfoldr`) in Julia. See the reference for details about the individual functions provided by this package.
 

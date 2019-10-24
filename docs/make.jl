@@ -1,9 +1,9 @@
-using Documenter, Threaded;
+using Documenter, ThreadedIterables;
 
 makedocs(
 	format = Documenter.HTML(),
-	sitename = "Threaded.jl",
-	modules = [Threaded],
+	sitename = "ThreadedIterables.jl",
+	modules = [ThreadedIterables],
 	authors = "Marek Dědič",
 	pages = Any[
 		"Home" => "index.md",
