@@ -8,6 +8,6 @@ if get(ENV, "CIRCLECI", "") == "true"
 	end
 
 	mktempdir() do temp
-		Documenter.git_push(Documenter.Utilities.currentdir(), temp, "github.com/marekdedic/Threaded.jl.git"; target = "docs/build", tag = get(ENV, "CIRCLE_TAG", ""), sha = sha, versions = ["stable" => "v^", "v#.#", "dev" => "dev"]);
+		Documenter.git_push(Documenter.Utilities.currentdir(), temp, "github.com/marekdedic/ThreadedIterables.jl.git"; target = "docs/build", tag = get(ENV, "CIRCLE_TAG", ""), sha = sha, versions = ["stable" => "v^", "v#.#", "dev" => "dev"]);
 	end
 end

@@ -1,4 +1,4 @@
-name = "Threaded"
+name = "ThreadedIterables"
 uuid = "11d239b0-c0b9-11e8-1935-d5cfa53abb03"
 authors = ["Marek Dědič <developer@dedic.eu>"]
 version = "0.2.0"
