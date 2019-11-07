@@ -4,8 +4,9 @@
 
 This package adds multi-threaded versions of functions operating on collections. Currently, the package contains the functions `foreach`, `map`, `reduce`, `mapreduce`, `mapfoldl`, `mapfoldr`.
 
-The simplest way to use the package id the `@threaded macro`, which converts all the supported functions in the expression to their multi-threaded equivalents.
+The simplest way to use the package is the `@threaded` macro, which converts all the supported functions in the expression to their multi-threaded equivalents.
 
+Example:
 ```julia
 
 julia> using ThreadedIterables
