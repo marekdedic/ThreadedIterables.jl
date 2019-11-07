@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Getting started · ThreadedIterables.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>ThreadedIterables.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">Home</a></li><li class="current"><a class="toctext" href>Getting started</a><ul class="internal"><li><a class="toctext" href="#Using-a-macro-1">Using a macro</a></li><li><a class="toctext" href="#Using-a-function-1">Using a function</a></li></ul></li><li><span class="toctext">Reference</span><ul><li><a class="toctext" href="../reference/foreach/">foreach()</a></li><li><a class="toctext" href="../reference/map/">map()</a></li><li><a class="toctext" href="../reference/reduce/">reduce()</a></li><li><a class="toctext" href="../reference/mapreduce/">mapreduce()</a></li><li><a class="toctext" href="../reference/mapfoldl/">mapfoldl()</a></li><li><a class="toctext" href="../reference/mapfoldr/">mapfoldr()</a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li><a href>Getting started</a></li></ul><a class="edit-page" href="https://github.com/marekdedic/ThreadedIterables.jl/blob/master/docs/src/getting_started.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Getting started</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="Getting-started-1" href="#Getting-started-1">Getting started</a></h1><h2><a class="nav-anchor" id="Using-a-macro-1" href="#Using-a-macro-1">Using a macro</a></h2><p>The simplest way to use the package is the <code>@threaded</code> macro, which converts the expression following it into a multi-threaded one.</p><p>Example:</p><pre><code class="language-julia">julia&gt; using ThreadedIterables
+
+julia&gt; a = rand(1:10, 4)
+4-element Array{Int64,1}:
+  4
+  7
+ 10
+  7
+
+julia&gt;@threaded map(x -&gt; 2x, a)
+4-element Array{Int64,1}:
+  8
+ 14
+ 20
+ 14</code></pre><p>The macro converts all supported functions in the expression, so in the following example, both of the maps will be multi-threaded:</p><pre><code class="language-julia">julia&gt; using ThreadedIterables
+
+julia&gt; a = rand(1:10, 4)
+4-element Array{Int64,1}:
+ 1
+ 5
+ 2
+ 3
+
+julia&gt; @threaded map(x -&gt; x + 1, map(x -&gt; 2x, a))
+4-element Array{Int64,1}:
+  3
+ 11
+  5
+  7</code></pre><h2><a class="nav-anchor" id="Using-a-function-1" href="#Using-a-function-1">Using a function</a></h2><p>If you want a more fine-grained control over which functions get converted, you can use the multi-threaded functions from this package manually. For a list of all the supported functions, see the reference.</p><p>In this example, only the outer map will be multi-threaded:</p><pre><code class="language-julia">julia&gt; using ThreadedIterables
+
+julia&gt; a = rand(1:10, 4)
+4-element Array{Int64,1}:
+ 1
+ 5
+ 2
+ 3
+
+julia&gt; tmap(x -&gt; x + 1, map(x -&gt; 2x, a))
+4-element Array{Int64,1}:
+  3
+ 11
+  5
+  7</code></pre><footer><hr/><a class="previous" href="../"><span class="direction">Previous</span><span class="title">Home</span></a><a class="next" href="../reference/foreach/"><span class="direction">Next</span><span class="title">foreach()</span></a></footer></article></body></html>
