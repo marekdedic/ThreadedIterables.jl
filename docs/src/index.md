@@ -4,4 +4,4 @@ This package implements Multi-threaded variants of the mapping functions (curren
 
 Note that when using this package, the responsibility for preventing race conditions lies with the user.
 
-**Warning:** Multi-threading in Julia is an experimental feature, use with caution. Crashes may occur quite frequently and are not caused by this package.
+**Warning:** Multi-threading in Julia is an experimental feature, use with caution. Crashes may occur and are not caused by this package.
