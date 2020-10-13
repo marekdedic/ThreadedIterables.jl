@@ -1,7 +1,9 @@
 using ThreadedIterables;
 using Test;
 
-using OffsetArrays;
+if VERSION >= v"1.2"
+	using OffsetArrays;
+end
 
 using Random;
 
