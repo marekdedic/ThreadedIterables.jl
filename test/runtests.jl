@@ -38,8 +38,10 @@ include("testThreaded.jl");
 				@test testTforeachMultiple();
 			end
 		end
-		@testset "tforeach(f, c1::OffsetArray, c2::OffsetArray)" begin
-			@test testTforeachMultipleOffset();
+		if VERSION >= v"1.2"
+			@testset "tforeach(f, c1::OffsetArray, c2::OffsetArray)" begin
+				@test testTforeachMultipleOffset();
+			end
 		end
 		@testset "tforeach(f, [], [])" begin
 			@test testTforeachMultipleEmpty();
@@ -58,8 +60,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmap(f, c::OffsetArray)" begin
-			@test testTmapOffset();
+		if VERSION >= v"1.2"
+			@testset "tmap(f, c::OffsetArray)" begin
+				@test testTmapOffset();
+			end
 		end
 		@testset "tmap(f, [])" begin
 			@test testTmapEmpty();
@@ -76,8 +80,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmap(f, c1::OffsetArray, c2::OffsetArray)" begin
-			@test testTmapMultipleOffset();
+		if VERSION >= v"1.2"
+			@testset "tmap(f, c1::OffsetArray, c2::OffsetArray)" begin
+				@test testTmapMultipleOffset();
+			end
 		end
 		@testset "tmap(f, [], [])" begin
 			@test testTmapMultipleEmpty();
@@ -108,8 +114,10 @@ include("testThreaded.jl");
 				@test testTreduce1();
 			end
 		end
-		@testset "reduce(op, v0, itr::OffsetArray)" begin
-			@test testTreduce1Offset();
+		if VERSION >= v"1.2"
+			@testset "reduce(op, v0, itr::OffsetArray)" begin
+				@test testTreduce1Offset();
+			end
 		end
 		@testset "reduce(op, v0, [])" begin
 			@test testTreduce1Empty();
@@ -119,8 +127,10 @@ include("testThreaded.jl");
 				@test testTreduce2();
 			end
 		end
-		@testset "reduce(op, itr::OffsetArray)" begin
-			@test testTreduce2Offset();
+		if VERSION >= v"1.2"
+			@testset "reduce(op, itr::OffsetArray)" begin
+				@test testTreduce2Offset();
+			end
 		end
 		@testset "reduce(op, [])" begin
 			@test_throws ArgumentError testTreduce2Empty();
@@ -139,8 +149,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmapreduce(f, op, itr::OffsetArray; init)" begin
-			@test testTmapreduce1Offset();
+		if VERSION >= v"1.2"
+			@testset "tmapreduce(f, op, itr::OffsetArray; init)" begin
+				@test testTmapreduce1Offset();
+			end
 		end
 		@testset "tmapreduce(f, op, []; init)" begin
 			@test testTmapreduce1Empty();
@@ -177,8 +189,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmapreduce(f, op, itr::OffsetArray)" begin
-			@test testTmapreduce2Offset();
+		if VERSION >= v"1.2"
+			@testset "tmapreduce(f, op, itr::OffsetArray)" begin
+				@test testTmapreduce2Offset();
+			end
 		end
 		@testset "tmapreduce(f, op, [])" begin
 			@test_throws ArgumentError testTmapreduce2Empty();
@@ -208,8 +222,10 @@ include("testThreaded.jl");
 				@test testMaptreduce1();
 			end
 		end
-		@testset "maptreduce(f, op, itr::OffsetArray; init)" begin
-			@test testMaptreduce1Offset();
+		if VERSION >= v"1.2"
+			@testset "maptreduce(f, op, itr::OffsetArray; init)" begin
+				@test testMaptreduce1Offset();
+			end
 		end
 		@testset "maptreduce(f, op, []; init)" begin
 			@test testMaptreduce1Empty();
@@ -232,8 +248,10 @@ include("testThreaded.jl");
 				@test testMaptreduce2();
 			end
 		end
-		@testset "maptreduce(f, op, itr::OffsetArray)" begin
-			@test testMaptreduce2Offset();
+		if VERSION >= v"1.2"
+			@testset "maptreduce(f, op, itr::OffsetArray)" begin
+				@test testMaptreduce2Offset();
+			end
 		end
 		@testset "maptreduce(f, op, [])" begin
 			@test_throws ArgumentError testMaptreduce2Empty();
@@ -256,8 +274,10 @@ include("testThreaded.jl");
 				@test testTmaptreduce1();
 			end
 		end
-		@testset "tmaptreduce(f, op, itr::OffsetArray; init)" begin
-			@test testTmaptreduce1Offset();
+		if VERSION >= v"1.2"
+			@testset "tmaptreduce(f, op, itr::OffsetArray; init)" begin
+				@test testTmaptreduce1Offset();
+			end
 		end
 		@testset "tmaptreduce(f, op, []; init)" begin
 			@test testTmaptreduce1Empty();
@@ -280,8 +300,10 @@ include("testThreaded.jl");
 				@test testTmaptreduce2();
 			end
 		end
-		@testset "tmatpreduce(f, op, itr::OffsetArray)" begin
-			@test testTmaptreduce2Offset();
+		if VERSION >= v"1.2"
+			@testset "tmatpreduce(f, op, itr::OffsetArray)" begin
+				@test testTmaptreduce2Offset();
+			end
 		end
 		@testset "tmaptpreduce(f, op, [])" begin
 			@test_throws ArgumentError testTmaptreduce2Empty();
@@ -313,8 +335,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmapfoldl(f, op, itr::OffsetArray; init)" begin
-			@test testTmapfoldl1Offset();
+		if VERSION >= v"1.2"
+			@testset "tmapfoldl(f, op, itr::OffsetArray; init)" begin
+				@test testTmapfoldl1Offset();
+			end
 		end
 		@testset "tmapfoldl(f, op, []; init)" begin
 			@test testTmapfoldl1Empty();
@@ -331,8 +355,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmapfoldl(f, op, itr::OffsetArray)" begin
-			@test testTmapfoldl2Offset();
+		if VERSION >= v"1.2"
+			@testset "tmapfoldl(f, op, itr::OffsetArray)" begin
+				@test testTmapfoldl2Offset();
+			end
 		end
 		@testset "tmapfoldl(f, op, [])" begin
 			@test_throws ArgumentError testTmapfoldl2Empty();
@@ -351,8 +377,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmapfoldr(f, op, itr::OffsetArray; init)" begin
-			@test testTmapfoldr1Offset();
+		if VERSION >= v"1.2"
+			@testset "tmapfoldr(f, op, itr::OffsetArray; init)" begin
+				@test testTmapfoldr1Offset();
+			end
 		end
 		@testset "tmapfoldr(f, op, []; init)" begin
 			@test testTmapfoldr1Empty();
@@ -369,8 +397,10 @@ include("testThreaded.jl");
 				end
 			end
 		end
-		@testset "tmapfoldr(f, op, itr::OffsetArray)" begin
-			@test testTmapfoldr2Offset();
+		if VERSION >= v"1.2"
+			@testset "tmapfoldr(f, op, itr::OffsetArray)" begin
+				@test testTmapfoldr2Offset();
+			end
 		end
 		@testset "tmapfoldr(f, op, [])" begin
 			@test_throws ArgumentError testTmapfoldr2Empty();
