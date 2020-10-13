@@ -16,6 +16,27 @@ workflows:
                 - gh-pages
             tags:
               only: /.*/
+      - unit-1_2:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+            tags:
+              only: /.*/
+      - unit-1_3:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+            tags:
+              only: /.*/
+      - unit-1_4:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+            tags:
+              only: /.*/
       - unit-latest:
           coverage: true
           filters:
@@ -50,6 +71,18 @@ job-references:
   env-1_1: &env-1_1
     docker:
       - image: julia:1.1
+
+  env-1_2: &env-1_2
+    docker:
+      - image: julia:1.2
+
+  env-1_3: &env-1_3
+    docker:
+      - image: julia:1.3
+
+  env-1_4: &env-1_4
+    docker:
+      - image: julia:1.4
 
   env-latest: &env-latest
     docker:
@@ -122,6 +155,18 @@ jobs:
 
   unit-1_1:
     <<: *env-1_1
+    <<: *unit
+
+  unit-1_2:
+    <<: *env-1_2
+    <<: *unit
+
+  unit-1_3:
+    <<: *env-1_3
+    <<: *unit
+
+  unit-1_4:
+    <<: *env-1_4
     <<: *unit
 
   unit-latest:
