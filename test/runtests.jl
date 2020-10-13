@@ -23,8 +23,10 @@ include("testThreaded.jl");
 				@test testTforeach();
 			end
 		end
-		@testset "tforeach(f, c::OffsetArray)" begin
-			@test testTforeachOffset();
+		if VERSION >= v"1.4"
+			@testset "tforeach(f, c::OffsetArray)" begin
+				@test testTforeachOffset();
+			end
 		end
 		@testset "tforeach(f, [])" begin
 			@test testTforeachEmpty();
