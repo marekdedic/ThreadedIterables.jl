@@ -12,6 +12,10 @@ function testTmapUnstable()::Bool
 	return all(map(x->str[1:x], arr) .== tmap(x->str[1:x], arr));
 end
 
+function testTmapOffset()::Bool
+	return templateTestTmap(offsetArray());
+end
+
 function testTmapEmpty()::Bool
 	return templateTestTmap([]);
 end
@@ -30,6 +34,10 @@ function testTmapUnstableMultiple()::Bool
 	arr1, arr2 = rand2StrArrays();
 	str = lipsum();
 	return all(map((x, y)->str[1:x + y], arr1, arr2) .== tmap((x, y)->str[1:x + y], arr1, arr2));
+end
+
+function testTmapMultipleOffset()::Bool
+	return templateTestTmapMultiple(offsetArray(), offsetArray());
 end
 
 function testTmapMultipleEmpty()::Bool
