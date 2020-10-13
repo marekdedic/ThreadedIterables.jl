@@ -10,6 +10,10 @@ function testTforeach()::Bool
 	return templateTestTforeach(randArray());
 end
 
+function testTforeachOffset()::Bool
+	return templateTestTforeach(offsetArray());
+end
+
 function testTforeachEmpty()::Bool
 	return templateTestTforeach([]);
 end
@@ -28,6 +32,10 @@ end
 
 function testTforeachMultiple()::Bool
 	return templateTestTforeachMultiple(randArray(), randArray());
+end
+
+function testTforeachMultipleOffset()::Bool
+	return templateTestTforeachMultiple(offsetArray(), offsetArray());
 end
 
 function testTforeachMultipleEmpty()::Bool
