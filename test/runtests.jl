@@ -195,7 +195,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmapreduce(f, op, [])" begin
-			@test_throws ArgumentError testTmapreduce2Empty();
+			@test_throws Union{ArgumentError,MethodError} testTmapreduce2Empty();
 		end
 		if VERSION >= v"1.2"
 			@testset "tmapreduce(f, op, itr1, itr2)" begin
@@ -214,7 +214,7 @@ include("testThreaded.jl");
 				@test testTmapreduce2MultipleOffset();
 			end
 			@testset "tmapreduce(f, op, [], [])" begin
-				@test_throws ArgumentError testTmapreduce2MultipleEmpty();
+				@test_throws Union{ArgumentError,MethodError} testTmapreduce2MultipleEmpty();
 			end
 		end
 		@testset "maptreduce(f, op, itr; init)" begin
@@ -361,7 +361,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmapfoldl(f, op, [])" begin
-			@test_throws ArgumentError testTmapfoldl2Empty();
+			@test_throws Union{ArgumentError,MethodError} testTmapfoldl2Empty();
 		end
 	end
 	@testset "mapfoldr" begin
@@ -403,7 +403,7 @@ include("testThreaded.jl");
 			end
 		end
 		@testset "tmapfoldr(f, op, [])" begin
-			@test_throws ArgumentError testTmapfoldr2Empty();
+			@test_throws Union{ArgumentError,MethodError} testTmapfoldr2Empty();
 		end
 	end
 	@testset "@threaded" begin
