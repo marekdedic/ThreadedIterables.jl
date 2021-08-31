@@ -1,0 +1,12 @@
+name: CompatHelper
+on:
+  schedule:
+    - cron: 0 0 * * *
+  workflow_dispatch:
+jobs:
+  CompatHelper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: JuliaRegistries/compathelper-action@v1
+        with:
+          ssh: ${{ secrets.DOCUMENTER_KEY }}
