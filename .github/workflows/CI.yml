@@ -4,6 +4,7 @@ on:
     branches: "*"
   pull_request:
 env:
+  JULIA_NUM_THREADS: 2
   cache-version: 1
 jobs:
   unit:
