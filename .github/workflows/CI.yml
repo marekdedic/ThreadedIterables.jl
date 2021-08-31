@@ -37,3 +37,11 @@ jobs:
 
       - name: "Run unit tests"
         uses: julia-actions/julia-runtest@v1
+
+      - name: "Process coverage results"
+        uses: julia-actions/julia-processcoverage@v1
+
+      - name: "Upload coverage results"
+        uses: codecov/codecov-action@v2
+        with:
+          file: lcov.info
