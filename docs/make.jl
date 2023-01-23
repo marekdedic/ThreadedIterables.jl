@@ -18,3 +18,7 @@ makedocs(
 		]
 	]
 );
+
+deploydocs(
+    repo = "github.com/marekdedic/ThreadedIterables.jl.git",
+)
