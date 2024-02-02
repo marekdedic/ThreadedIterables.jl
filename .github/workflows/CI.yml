@@ -45,3 +45,4 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           file: lcov.info
+          fail_ci_if_error: true
