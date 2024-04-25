@@ -2,6 +2,12 @@
 
 [![CircleCI](https://img.shields.io/circleci/build/github/marekdedic/ThreadedIterables.jl/master.svg)](https://circleci.com/gh/marekdedic/ThreadedIterables.jl/tree/master) [![Codecov branch](https://img.shields.io/codecov/c/github/marekdedic/ThreadedIterables.jl/master.svg)](https://codecov.io/gh/marekdedic/ThreadedIterables.jl/branch/master) [![Stable docs](https://img.shields.io/badge/docs-stable-blue.svg)](https://marekdedic.github.io/ThreadedIterables.jl/stable/) [![Latest docs](https://img.shields.io/badge/docs-latest-blue.svg)](https://marekdedic.github.io/ThreadedIterables.jl/latest/)
 
+## DEPRECATION NOTICE
+
+This package is very old and unmaintained. Please use [ThreadsX.jl](https://github.com/tkf/ThreadsX.jl) instead.
+
+## Description
+
 This package adds multi-threaded versions of functions operating on collections. Currently, the package contains the functions `foreach`, `map`, `reduce`, `mapreduce`, `mapfoldl`, `mapfoldr`.
 
 The simplest way to use the package is the `@threaded` macro, which converts all the supported functions in the expression to their multi-threaded equivalents.
