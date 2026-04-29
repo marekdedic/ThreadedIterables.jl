@@ -27,7 +27,7 @@ jobs:
             arch: x86
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: "Setup Julia"
         uses: julia-actions/setup-julia@v1
